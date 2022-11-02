@@ -13,5 +13,6 @@
   .profile__button_action_add {
     max-width: 282px;
     width: 100%;
+    background-size: 16px 16px;
   }
 }
