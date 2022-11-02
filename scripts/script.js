@@ -1,23 +1,52 @@
+// Получаем ссылки на элемент "popup" и кнопки "Редактировать профиль" и "Закрыть popup"
+let popupElement = document.querySelector('.popup');
+let editButton = document.querySelector('.profile__button_action_edit');
+let closeButton = document.querySelector('.popup__close');
+
+// Находим профиль пользователя в DOM
+let userProfile = document.querySelector('.profile');
+// Получаем текстовое содержимое элементов профиля
+let userName = userProfile.querySelector('.profile__name');
+let userJob = userProfile.querySelector('.profile__job');
+
+// Находим форму в DOM
+let formElement = document.querySelector('.form'); // Воспользуйтесь методом querySelector()
+// Находим поля формы в DOM
+let nameInput = formElement.querySelector('.form__item_el_name'); // Воспользуйтесь инструментом .querySelector()
+let jobInput = formElement.querySelector('.form__item_el_job'); // Воспользуйтесь инструментом .querySelector()
 
 
-const popupElement = document.querySelector('.popup'); // получить ссылку на попап
-const editButton = document.querySelector('.profile__button_action_edit'); // получить ссылку на кнопку "Редактировать профиль"
-const closeButton = document.querySelector('.popup__close'); // получить ссылку на кнопку "Закрыть попап"
+// Обработчик «отправки» формы, хотя пока
+// она никуда отправляться не будет
+function formSubmitHandler(evt) {
+  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+  // Так мы можем определить свою логику отправки.
+  // О том, как это делать, расскажем позже.
+  let name = nameInput.value;
+  let job = jobInput.value;
+  // Получите значение полей jobInput и nameInput из свойства value
 
-const inputUser = document.querySelector('.form__item_el_name') // получить ссылку на поле формы "Имя пользователя"
-const inputJob = document.querySelector('.form__item_el_job') // получить ссылку на поле формы "Род деятельности пользователя"
+  if (name === '' || job === '') {
+    return;
+  } else {
+    userName.textContent = name;
+    userJob.textContent = job;
+    popupElement.classList.remove('popup_opened');
+  }
+}
 
-const userName = document.querySelector('.profile__user').textContent; // получить текст имени пользователя
-const userJob = document.querySelector('.profile__job').textContent; //получить текст рода занятий пользователя
+// Прикрепляем обработчик к форме:
+// он будет следить за событием “submit” - «отправка»
+formElement.addEventListener('submit', formSubmitHandler);
 
 
-console.log(userName);
-console.log(userJob);
 
 function openPopup() {
+  let name = userName.textContent;
+  let job = userJob.textContent;
   popupElement.classList.add('popup_opened');
-  inputUser.setAttribute('placeholder', userName);
-  inputJob.setAttribute('placeholder', userJob);
+  nameInput.setAttribute('placeholder', name);
+  jobInput.setAttribute('placeholder', job);
 }
 
 function closePopup(event) {
@@ -26,6 +55,9 @@ function closePopup(event) {
   }
 }
 
+// Прикрепляем обработчик к кнопке "Редактировать"
 editButton.addEventListener('click', openPopup);
+
+// Прикрепляем обработчик к элементу "popup" и кнопке "Закрыть popup"
 closeButton.addEventListener('click', closePopup);
 popupElement.addEventListener('click', closePopup);
