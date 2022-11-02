@@ -11,17 +11,88 @@
   <link rel="stylesheet" href="./pages/index.css">
 </head>
 
-<body>
-  <div class="page">
-    <header class="header page_content">
-      <a class="logo" href="#">
-        <img class="logo__image" src="./images/logo.svg" alt="логотип проекта Место.">
-      </a>
-      <hr class="header__horizontal-line">
-    </header>
-    <main class="main page_content"></main>
-    <footer class="footer page_content"></footer>
+<body class="page">
+  <header class="header page__content">
+    <a class="header__logo-link" href="#">
+      <img class="header__logo" src="./images/logo.svg" alt="логотип проекта Место.">
+    </a>
+    <div class="header__line"></div>
+  </header>
+
+  <main class="main">
+    <section class="profile page__content">
+      <img class="profile__avatar" src="./images/avatar.svg" alt="аватар пользователя.">
+      <div class="profile__info-container">
+        <h1 class="profile__user">Жак-Ив Кусто</h1>
+        <p class="profile__job">Исследователь океана</p>
+        <button class="profile__button profile__button_action_edit"></button>
+      </div>
+      <button class="profile__button profile__button_action_add"></button>
+    </section>
+    <section class="places page__content">
+      <ul class="cards">
+        <li class="card">
+          <img class="card__image" src="./images/karachaevsk.jpg" alt="Карачаевск.">
+          <div class="card__desctiption">
+            <h3 class="card__title">Карачаевск</h3>
+            <button class="card__like"></button>
+          </div>
+        </li>
+        <li class="card">
+          <img class="card__image" src="./images/elbrus.jpg" alt="Гора Эльбрус.">
+          <div class="card__desctiption">
+            <h3 class="card__title">Гора Эльбрус</h3>
+            <button class="card__like"></button>
+          </div>
+        </li>
+        <li class="card">
+          <img class="card__image" src="./images/dombai.jpg" alt="Домбай.">
+          <div class="card__desctiption">
+            <h3 class="card__title">Добмай</h3>
+            <button class="card__like"></button>
+          </div>
+        </li>
+        <li class="card">
+          <img class="card__image" src="./images/elbrus.jpg" alt="Гора Эльбрус.">
+          <div class="card__desctiption">
+            <h3 class="card__title">Гора Эльбрус</h3>
+            <button class="card__like"></button>
+          </div>
+        </li>
+        <li class="card">
+          <img class="card__image" src="./images/dombai.jpg" alt="Домбай.">
+          <div class="card__desctiption">
+            <h3 class="card__title">Добмай</h3>
+            <button class="card__like"></button>
+          </div>
+        </li>
+        <li class="card">
+          <img class="card__image" src="./images/karachaevsk.jpg" alt="Карачаево-Черкессия">
+          <div class="card__desctiption">
+            <h3 class="card__title">Карачаево-Черкессия</h3>
+            <button class="card__like"></button>
+          </div>
+        </li>
+      </ul>
+    </section>
+  </main>
+  <footer class="footer page__content">
+    <span class="footer__copyright">&copy; 2022 Mesto Russia</span>
+  </footer>
+  <div class="popup">
+    <div class="popup__container">
+      <form class="form">
+        <h2 class="form__header"> Редактировать профиль</h2>
+        <fieldset class="form__items-container">
+          <input class="form__item form__item_el_name" type="text">
+          <input class="form__item form__item_el_job" type="text">
+        </fieldset>
+        <button class="form__button"><span class="form__button-text">Сохранить</span></button>
+      </form>
+      <button class="popup__close"></button>
+    </div>
   </div>
+  <script src="./scripts/script.js" defer></script>
 </body>
 
 </html>

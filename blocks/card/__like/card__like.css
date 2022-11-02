@@ -1,0 +1,15 @@
+.card__like {
+  all: unset;
+  box-sizing: border-box;
+  width: 23px;
+  height: 20px;
+  background-image: url(../../../images/like-disabled.svg);
+  background-size: 22px 19px;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+
+.card__like:hover {
+  opacity: .5;
+}

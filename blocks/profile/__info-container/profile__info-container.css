@@ -1,0 +1,13 @@
+.profile__info-container {
+  position: relative;
+  margin-right: auto;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-style: normal;
+}
+
+@media screen and (max-width: 768px) {
+  .profile__info-container {
+    margin-right: 0;
+    margin-bottom: 36px;
+  }
+}

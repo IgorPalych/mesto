@@ -1,1 +1,24 @@
-.header {}
+.header {
+  max-width: 880px;
+  padding-top: 45px;
+}
+
+@media screen and (max-width: 934px) {
+  .header {
+    padding-right: 27px;
+    padding-left: 27px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .header {
+    padding-top: 28px;
+  }
+}
