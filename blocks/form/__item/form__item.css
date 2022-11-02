@@ -10,8 +10,8 @@
   font-family: inherit;
   font-size: 14px;
   line-height: 1.2;
+  color: #000;
   background-color: transparent;
-
 }
 
 .form__item:last-of-type {
@@ -20,4 +20,11 @@
 
 .form__item:focus {
   outline: none;
+}
+
+.form__item::placeholder {
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.2;
+  color: rgba(0, 0, 0, 0.5);
 }
