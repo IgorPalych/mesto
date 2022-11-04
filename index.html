@@ -25,9 +25,9 @@
       <div class="profile__info-container">
         <h1 class="profile__name">Жак-Ив Кусто</h1>
         <p class="profile__job">Исследователь океана</p>
-        <button class="profile__button profile__button_action_edit"></button>
+        <button class="profile__button profile__button_action_edit" type="button"></button>
       </div>
-      <button class="profile__button profile__button_action_add"></button>
+      <button class="profile__button profile__button_action_add" type="button"></button>
     </section>
     <section class="places page__content">
       <ul class="cards">
@@ -35,42 +35,42 @@
           <img class="card__image" src="./images/karachaevsk.jpg" alt="Карачаевск.">
           <div class="card__desctiption">
             <h3 class="card__title">Карачаевск</h3>
-            <button class="card__like"></button>
+            <button class="card__like" type="button"></button>
           </div>
         </li>
         <li class="card">
           <img class="card__image" src="./images/elbrus.jpg" alt="Гора Эльбрус.">
           <div class="card__desctiption">
             <h3 class="card__title">Гора Эльбрус</h3>
-            <button class="card__like"></button>
+            <button class="card__like" type="button"></button>
           </div>
         </li>
         <li class="card">
           <img class="card__image" src="./images/dombai.jpg" alt="Домбай.">
           <div class="card__desctiption">
             <h3 class="card__title">Добмай</h3>
-            <button class="card__like"></button>
+            <button class="card__like" type="button"></button>
           </div>
         </li>
         <li class="card">
           <img class="card__image" src="./images/elbrus.jpg" alt="Гора Эльбрус.">
           <div class="card__desctiption">
             <h3 class="card__title">Гора Эльбрус</h3>
-            <button class="card__like"></button>
+            <button class="card__like" type="button"></button>
           </div>
         </li>
         <li class="card">
           <img class="card__image" src="./images/dombai.jpg" alt="Домбай.">
           <div class="card__desctiption">
             <h3 class="card__title">Добмай</h3>
-            <button class="card__like"></button>
+            <button class="card__like" type="button"></button>
           </div>
         </li>
         <li class="card">
           <img class="card__image" src="./images/karachaevsk.jpg" alt="Карачаево-Черкессия">
           <div class="card__desctiption">
             <h3 class="card__title">Карачаево-Черкессия</h3>
-            <button class="card__like"></button>
+            <button class="card__like" type="button"></button>
           </div>
         </li>
       </ul>
@@ -81,15 +81,15 @@
   </footer>
   <div class="popup">
     <div class="popup__container">
-      <form class="form">
-        <h2 class="form__header"> Редактировать профиль</h2>
+      <h2 class="popup__header">Редактировать профиль</h2>
+      <form class="form" name="edit-profile-form">
         <fieldset class="form__items-container">
           <input class="form__item form__item_el_name" type="text">
           <input class="form__item form__item_el_job" type="text">
         </fieldset>
-        <button class="form__button"><span class="form__button-text">Сохранить</span></button>
+        <button class="form__button" type="submit"><span class="form__button-text">Сохранить</span></button>
       </form>
-      <button class="popup__close"></button>
+      <button class="popup__close" type="button"></button>
     </div>
   </div>
   <script src="./scripts/script.js" defer></script>
