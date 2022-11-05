@@ -35,12 +35,6 @@ function formSubmitHandler(evt) {
   }
 }
 
-// Прикрепляем обработчик к форме:
-// он будет следить за событием “submit” - «отправка»
-formElement.addEventListener('submit', formSubmitHandler);
-
-
-
 function openPopup() {
   let name = userName.textContent;
   let job = userJob.textContent;
@@ -54,6 +48,11 @@ function closePopup(event) {
     popupElement.classList.remove('popup_opened');
   }
 }
+
+
+// Прикрепляем обработчик к форме:
+// он будет следить за событием “submit” - «отправка»
+formElement.addEventListener('submit', formSubmitHandler);
 
 // Прикрепляем обработчик к кнопке "Редактировать"
 editButton.addEventListener('click', openPopup);
