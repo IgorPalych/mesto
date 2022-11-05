@@ -1,13 +1,25 @@
 .profile__info-container {
-  position: relative;
+  display: grid;
+  grid-template-columns: auto 24px;
+  gap: 16px 18px;
+  max-width: 500px;
   margin-right: auto;
-  font-family: 'Inter', Arial, Helvetica, sans-serif;
-  font-style: normal;
+  padding-right: 50px;
 }
 
 @media screen and (max-width: 768px) {
   .profile__info-container {
     margin-right: 0;
     margin-bottom: 36px;
+    padding-left: 42px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .profile__info-container {
+    grid-template-columns: auto 18px;
+    gap: 14px 10px;
+    padding-right: 0;
+    padding-left: 28px;
   }
 }
