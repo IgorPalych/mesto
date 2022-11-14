@@ -21,7 +21,7 @@
 
 @import url(../blocks/places/places.css);
 
-@import url(../blocks/cards/cards.css);
+@import url(../blocks/cards-list/cards-list.css);
 
 @import url(../blocks/card/card.css);
 @import url(../blocks/card/__image/card__image.css);

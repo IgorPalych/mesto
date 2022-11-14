@@ -29,8 +29,8 @@
       <button class="profile__button profile__button_action_add" type="button"></button>
     </section>
     <section class="places page__content">
-      <ul class="cards">
-        <li class="card">
+      <ul class="cards-list">
+        <!-- <li class="card">
           <img class="card__image" src="./images/karachaevsk.jpg" alt="Карачаевск.">
           <div class="card__desctiption">
             <h3 class="card__title">Карачаевск</h3>
@@ -71,7 +71,7 @@
             <h3 class="card__title">Карачаево-Черкессия</h3>
             <button class="card__like" type="button"></button>
           </div>
-        </li>
+        </li> -->
       </ul>
     </section>
   </main>
@@ -91,6 +91,17 @@
       <button class="popup__close" type="button"></button>
     </div>
   </div>
+
+  <template id="card-template">
+    <li class="card">
+      <img class="card__image" src="" alt="">
+      <div class="card__desctiption">
+        <h3 class="card__title"></h3>
+        <button class="card__like" type="button"></button>
+      </div>
+    </li>
+  </template>
+
   <script src="./scripts/script.js" defer></script>
 </body>
 

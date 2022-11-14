@@ -1,3 +1,75 @@
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
+
+// DOM-узлы
+const cardsList = document.querySelector('.cards-list');
+
+
+// Шаблоны
+const cardTemplate = document.querySelector('#card-template').content.querySelector('.card');
+
+// Генерация карточки
+const generateCard = (item) => {
+  const newCard = cardTemplate.cloneNode(true);
+
+  const title = newCard.querySelector('.card__title');
+  title.textContent = item.name;
+
+  const image = newCard.querySelector('.card__image')
+  image.src = item.link;
+
+  return newCard;
+}
+
+// Отрисовка отдельной карточки
+const renderCard = (item) => {
+  cardsList.prepend(generateCard(item));
+}
+
+// Отрисовка всех карточек
+initialCards.forEach((item) => {
+  renderCard(item);
+});
+
+
+// обработчик отправки формы добавления новой карточки
+/* const addCardSubmitHandler = (event) => {
+  evt.preventDefault(); // отменить стандартную отправку формы.
+  renderCard();
+} */
+
+
+
+
+
+
+
+
+
 // Получаем ссылки на элемент "popup" и кнопки "Редактировать профиль" и "Закрыть popup"
 let popupElement = document.querySelector('.popup');
 let editButton = document.querySelector('.profile__button_action_edit');
