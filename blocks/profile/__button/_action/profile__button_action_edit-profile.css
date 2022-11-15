@@ -1,4 +1,4 @@
-.profile__button_action_edit {
+.profile__button_action_edit-profile {
   grid-column: 2;
   grid-row: 1;
   align-self: center;
@@ -13,7 +13,7 @@
 }
 
 @media screen and (max-width: 425px) {
-  .profile__button_action_edit {
+  .profile__button_action_edit-profile {
     width: 18px;
     height: 18px;
     background-size: 8px 8px;

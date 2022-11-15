@@ -27,23 +27,33 @@ const initialCards = [
 
 // DOM-узлы
 const cardsList = document.querySelector('.cards-list');
+const addButton = document.querySelector('.profile__button_action_add-place')
+
+
+// Попапы и кнопки их вызова и закрытия
+const popupEditProfile = document.querySelector('.popup_type_edit-profile');
+const editProfileButton = document.querySelector('.profile__button_action_edit-profile');
+const closeEditButton = document.querySelector('.popup__close-button_type_edit-profile');
+
+const popupAddPlace = document.querySelector('.popup_type_add-place');
+const addPlaceButton = document.querySelector('.profile__button_action_add-place');
+const closeAddButton = document.querySelector('.popup__close-button_type_add-place');
+
+
 
 
 // Шаблоны
 const cardTemplate = document.querySelector('#card-template').content.querySelector('.card');
 
+
 // Генерация карточки
 const generateCard = (item) => {
   const newCard = cardTemplate.cloneNode(true);
-
-  const title = newCard.querySelector('.card__title');
-  title.textContent = item.name;
-
-  const image = newCard.querySelector('.card__image')
-  image.src = item.link;
-
+  newCard.querySelector('.card__title').textContent = item.name;
+  newCard.querySelector('.card__image').src = item.link;
   return newCard;
 }
+
 
 // Отрисовка отдельной карточки
 const renderCard = (item) => {
@@ -56,24 +66,13 @@ initialCards.forEach((item) => {
 });
 
 
+
+
 // обработчик отправки формы добавления новой карточки
 /* const addCardSubmitHandler = (event) => {
   evt.preventDefault(); // отменить стандартную отправку формы.
   renderCard();
 } */
-
-
-
-
-
-
-
-
-
-// Получаем ссылки на элемент "popup" и кнопки "Редактировать профиль" и "Закрыть popup"
-let popupElement = document.querySelector('.popup');
-let editButton = document.querySelector('.profile__button_action_edit');
-let closeButton = document.querySelector('.popup__close');
 
 // Находим профиль пользователя в DOM
 let userProfile = document.querySelector('.profile');
@@ -107,25 +106,47 @@ function formSubmitHandler(evt) {
   }
 }
 
-function openPopup() {
-  let name = userName.textContent;
-  let job = userJob.textContent;
-  popupElement.classList.add('popup_opened');
-  nameInput.value = name;
-  jobInput.value = job;
+
+function openPopup(popupName) {
+  popupName.classList.add('popup_opened');
 }
 
-function closePopup() {
-  popupElement.classList.remove('popup_opened');
+function closePopup(popupName) {
+  popupName.classList.remove('popup_opened');
 }
+
 
 
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
 formElement.addEventListener('submit', formSubmitHandler);
 
-// Прикрепляем обработчик к кнопке "Редактировать"
-editButton.addEventListener('click', openPopup);
 
-// Прикрепляем обработчик к элементу "popup" и кнопке "Закрыть popup"
-closeButton.addEventListener('click', closePopup);
+// Открыть и закрыть попапы
+editProfileButton.addEventListener('click', function () {
+  openPopup(document.querySelector('.popup_type_edit-profile'));
+});
+
+addPlaceButton.addEventListener('click', () => {   // то же, только стрелочный колбэк
+  openPopup(document.querySelector('.popup_type_add-place'));
+});
+
+closeEditButton.addEventListener('click', () => {
+  closePopup(document.querySelector('.popup_type_edit-profile'));
+});
+
+closeAddButton.addEventListener('click', () => {
+  closePopup(document.querySelector('.popup_type_add-place'));
+});
+
+
+
+
+
+/* function openPopup() {
+  let name = userName.textContent;
+  let job = userJob.textContent;
+  popupElement.classList.add('popup_opened');
+  nameInput.value = name;
+  jobInput.value = job;
+} */
