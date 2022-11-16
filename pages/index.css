@@ -36,10 +36,10 @@
 @import url(../blocks/popup/__close-button/popup__close-button.css);
 
 @import url(../blocks/form/form.css);
-@import url(../blocks/form/__items-container/form__items-container.css);
-@import url(../blocks/form/__item/form__item.css);
-@import url(../blocks/form/__button/form__button.css);
-@import url(../blocks/form/__button-text/form__button-text.css);
+@import url(../blocks/form/__inputs-container/form__inputs-container.css);
+@import url(../blocks/form/__input/form__input.css);
+@import url(../blocks/form/__submit-button/form__submit-button.css);
+@import url(../blocks/form/__submit-button-text/form__submit-button-text.css);
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);

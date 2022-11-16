@@ -1,11 +1,11 @@
-.form__items-container {
+.form__inputs-container {
   margin: 0 0 48px;
   padding: 0;
   border: 0;
 }
 
 @media screen and (max-width: 600px) {
-  .form__items-container {
+  .form__inputs-container {
     margin-bottom: 45px;
   }
 }

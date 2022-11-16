@@ -1,3 +1,27 @@
+// Попапы и кнопки их вызова и закрытия
+const popupEditProfile = document.querySelector('.popup_type_edit-profile');
+const editProfileButton = document.querySelector('.profile__button_action_edit-profile');
+const closeEditProfileButton = document.querySelector('.popup__close-button_type_edit-profile');
+
+const popupAddPlace = document.querySelector('.popup_type_add-place');
+const addPlaceButton = document.querySelector('.profile__button_action_add-place');
+const closeAddPlaceButton = document.querySelector('.popup__close-button_type_add-place');
+
+// Формы
+const formEditProfile = document.querySelector('.form_type_edit-profile');
+const inputName = formEditProfile.querySelector('.form__input_el_name');
+const inputJob = formEditProfile.querySelector('.form__input_el_job');
+
+const formAddPlace = document.querySelector('.form_type_add-place');
+const inputTitle = formAddPlace.querySelector('.form__input_el_place-title');
+const inputSrc = formAddPlace.querySelector('.form__input_el_place-image-src');
+
+// Профиль пользователя
+const userProfile = document.querySelector('.profile');
+const userName = userProfile.querySelector('.profile__name');
+const userJob = userProfile.querySelector('.profile__job');
+
+// Массив карточек
 const initialCards = [
   {
     name: 'Архыз',
@@ -25,26 +49,11 @@ const initialCards = [
   }
 ];
 
-// DOM-узлы
+// Элемент списка карточек
 const cardsList = document.querySelector('.cards-list');
-const addButton = document.querySelector('.profile__button_action_add-place')
 
-
-// Попапы и кнопки их вызова и закрытия
-const popupEditProfile = document.querySelector('.popup_type_edit-profile');
-const editProfileButton = document.querySelector('.profile__button_action_edit-profile');
-const closeEditButton = document.querySelector('.popup__close-button_type_edit-profile');
-
-const popupAddPlace = document.querySelector('.popup_type_add-place');
-const addPlaceButton = document.querySelector('.profile__button_action_add-place');
-const closeAddButton = document.querySelector('.popup__close-button_type_add-place');
-
-
-
-
-// Шаблоны
+// Шаблон карточки
 const cardTemplate = document.querySelector('#card-template').content.querySelector('.card');
-
 
 // Генерация карточки
 const generateCard = (item) => {
@@ -54,59 +63,50 @@ const generateCard = (item) => {
   return newCard;
 }
 
-
-// Отрисовка отдельной карточки
+// Отрисовываем отдельную карточку
 const renderCard = (item) => {
   cardsList.prepend(generateCard(item));
 }
 
-// Отрисовка всех карточек
+// Отрисовываем все карточки
 initialCards.forEach((item) => {
   renderCard(item);
 });
 
 
-
-
-// обработчик отправки формы добавления новой карточки
-/* const addCardSubmitHandler = (event) => {
-  evt.preventDefault(); // отменить стандартную отправку формы.
-  renderCard();
-} */
-
-// Находим профиль пользователя в DOM
-let userProfile = document.querySelector('.profile');
-// Получаем текстовое содержимое элементов профиля
-let userName = userProfile.querySelector('.profile__name');
-let userJob = userProfile.querySelector('.profile__job');
-
-// Находим форму в DOM
-let formElement = document.querySelector('.form');
-// Находим поля формы в DOM
-let nameInput = formElement.querySelector('.form__item_el_name');
-let jobInput = formElement.querySelector('.form__item_el_job');
-
-
-// Обработчик «отправки» формы, хотя пока
-// она никуда отправляться не будет
-function formSubmitHandler(evt) {
-  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-  // Так мы можем определить свою логику отправки.
-  // О том, как это делать, расскажем позже.
-  let name = nameInput.value;
-  let job = jobInput.value;
-  // Получаем значение полей jobInput и nameInput из свойства value
-
-  if (name === '' || job === '') {
+// Обработчики отправки формы
+function handlerProfileFormSubmit(event) {
+  event.preventDefault();
+  if (inputName.value === '' || inputJob.value === '') {
     return;
   } else {
-    userName.textContent = name;
-    userJob.textContent = job;
-    closePopup();
+    userName.textContent = inputName.value;
+    userJob.textContent = inputJob.value;
+    closePopup(popupEditProfile);
   }
 }
 
+function handlerAddPlaceFormSubmit(event) {
+  event.preventDefault();
+  if (inputTitle.value === '' || inputSrc.value === '') {
+    return;
+  } else {
+    const placeInfo = {};
+    placeInfo.name = inputTitle.value;
+    placeInfo.link = inputSrc.value;
+    renderCard(placeInfo);
+    closePopup(popupAddPlace);
+  }
+}
 
+// Редактировать профиль
+function editProfile() {
+  openPopup(popupEditProfile);
+  inputName.value = userProfile.querySelector('.profile__name').textContent;
+  inputJob.value = userProfile.querySelector('.profile__job').textContent;
+}
+
+// Открыть/Закрыть попап
 function openPopup(popupName) {
   popupName.classList.add('popup_opened');
 }
@@ -115,38 +115,13 @@ function closePopup(popupName) {
   popupName.classList.remove('popup_opened');
 }
 
-
-
-// Прикрепляем обработчик к форме:
-// он будет следить за событием “submit” - «отправка»
-formElement.addEventListener('submit', formSubmitHandler);
+// Обработать событие отправки формы
+formEditProfile.addEventListener('submit', handlerProfileFormSubmit);
+formAddPlace.addEventListener('submit', handlerAddPlaceFormSubmit);
 
 
 // Открыть и закрыть попапы
-editProfileButton.addEventListener('click', function () {
-  openPopup(document.querySelector('.popup_type_edit-profile'));
-});
-
-addPlaceButton.addEventListener('click', () => {   // то же, только стрелочный колбэк
-  openPopup(document.querySelector('.popup_type_add-place'));
-});
-
-closeEditButton.addEventListener('click', () => {
-  closePopup(document.querySelector('.popup_type_edit-profile'));
-});
-
-closeAddButton.addEventListener('click', () => {
-  closePopup(document.querySelector('.popup_type_add-place'));
-});
-
-
-
-
-
-/* function openPopup() {
-  let name = userName.textContent;
-  let job = userJob.textContent;
-  popupElement.classList.add('popup_opened');
-  nameInput.value = name;
-  jobInput.value = job;
-} */
+editProfileButton.addEventListener('click', editProfile);
+addPlaceButton.addEventListener('click', () => { openPopup(popupAddPlace); });
+closeEditProfileButton.addEventListener('click', () => { closePopup(popupEditProfile); });
+closeAddPlaceButton.addEventListener('click', () => { closePopup(popupAddPlace); });
