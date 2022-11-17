@@ -55,6 +55,11 @@ const cardsList = document.querySelector('.cards-list');
 // Шаблон карточки
 const cardTemplate = document.querySelector('#card-template').content.querySelector('.card');
 
+// Лайк карточки
+const likeCard = (event) => {
+  event.target.classList.toggle('card__like_active');
+};
+
 // Удалить карточку
 const deleteCard = (event) => {
   event.target.closest('.card').remove();
@@ -65,8 +70,8 @@ const generateCard = (item) => {
   const newCard = cardTemplate.cloneNode(true);
   newCard.querySelector('.card__title').textContent = item.name;
   newCard.querySelector('.card__image').src = item.link;
-
-  newCard.querySelector('.card__trash').addEventListener('click', deleteCard)
+  newCard.querySelector('.card__like').addEventListener('click', likeCard);
+  newCard.querySelector('.card__trash').addEventListener('click', deleteCard);
   return newCard;
 };
 
