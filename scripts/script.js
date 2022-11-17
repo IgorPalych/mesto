@@ -106,6 +106,8 @@ function addPlaceFormSubmit(event) {
     const placeInfo = {};
     placeInfo.name = inputTitle.value;
     placeInfo.link = inputSrc.value;
+    inputTitle.value = '';
+    inputSrc.value = '';
     renderCard(placeInfo);
     closePopup(popupAddPlace);
   }
