@@ -1,20 +1,30 @@
-// Попапы и кнопки вызова и закрытия попапов
+// Попап профиля
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
+
 const editProfileButton = document.querySelector('.profile__button_action_edit-profile');
-const closeEditProfileButton = document.querySelector('.popup__close-button_type_edit-profile');
+const closeEditProfileButton = popupEditProfile.querySelector('.popup__close-button_type_edit-profile');
 
-const popupAddPlace = document.querySelector('.popup_type_add-place');
-const addPlaceButton = document.querySelector('.profile__button_action_add-place');
-const closeAddPlaceButton = document.querySelector('.popup__close-button_type_add-place');
-
-// Формы и поля ввода
 const formEditProfile = document.querySelector('.form_type_edit-profile');
 const inputName = formEditProfile.querySelector('.form__input_el_name');
 const inputJob = formEditProfile.querySelector('.form__input_el_job');
 
+// Попап добавления карточки
+const popupAddPlace = document.querySelector('.popup_type_add-place');
+
+const addPlaceButton = document.querySelector('.profile__button_action_add-place');
+const closeAddPlaceButton = popupAddPlace.querySelector('.popup__close-button_type_add-place');
+
 const formAddPlace = document.querySelector('.form_type_add-place');
 const inputTitle = formAddPlace.querySelector('.form__input_el_place-title');
 const inputSrc = formAddPlace.querySelector('.form__input_el_place-image-src');
+
+// Попап просмотра карточки
+const popupViewCard = document.querySelector('.popup_type_view-card');
+
+const closeViewCard = popupViewCard.querySelector('.popup__close-button_type_view-card');
+
+
+
 
 // Профиль пользователя
 const userProfile = document.querySelector('.profile');
@@ -65,11 +75,23 @@ const deleteCard = (event) => {
   event.target.closest('.card').remove();
 };
 
+// Показать карточку
+function viewCard(link, name) {
+  openPopup(popupViewCard);
+  popupViewCard.querySelector('.popup__image').src = link;
+  popupViewCard.querySelector('.popup__figcaption').textContent = name;
+}
+
+
 // Сгенерировать карточку
 const generateCard = (item) => {
   const newCard = cardTemplate.cloneNode(true);
+  const imageSrc = item.link;
+  const imageName = item.name;
   newCard.querySelector('.card__title').textContent = item.name;
-  newCard.querySelector('.card__image').src = item.link;
+  newCard.querySelector('.card__image').src = imageSrc;
+  newCard.querySelector('.card__image').alt = imageName + '.';
+  newCard.querySelector('.card__image').addEventListener('click', () => { viewCard(imageSrc, imageName) });
   newCard.querySelector('.card__like').addEventListener('click', likeCard);
   newCard.querySelector('.card__trash').addEventListener('click', deleteCard);
   return newCard;
@@ -139,3 +161,4 @@ editProfileButton.addEventListener('click', editProfile);
 addPlaceButton.addEventListener('click', () => { openPopup(popupAddPlace); });
 closeEditProfileButton.addEventListener('click', () => { closePopup(popupEditProfile); });
 closeAddPlaceButton.addEventListener('click', () => { closePopup(popupAddPlace); });
+closeViewCard.addEventListener('click', () => { closePopup(popupViewCard); });
