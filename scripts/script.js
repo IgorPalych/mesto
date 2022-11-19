@@ -23,9 +23,6 @@ const popupViewCard = document.querySelector('.popup_type_view-card');
 
 const closeViewCard = popupViewCard.querySelector('.popup__close-button_type_view-card');
 
-
-
-
 // Профиль пользователя
 const userProfile = document.querySelector('.profile');
 const userName = userProfile.querySelector('.profile__name');
@@ -79,9 +76,9 @@ const deleteCard = (event) => {
 function viewCard(link, name) {
   openPopup(popupViewCard);
   popupViewCard.querySelector('.popup__image').src = link;
+  popupViewCard.querySelector('.popup__image').alt = name + '.';
   popupViewCard.querySelector('.popup__figcaption').textContent = name;
 }
-
 
 // Сгенерировать карточку
 const generateCard = (item) => {
