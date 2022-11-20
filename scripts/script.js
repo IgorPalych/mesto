@@ -21,6 +21,10 @@ const inputSrc = formAddPlace.querySelector('.form__input_el_place-image-src');
 // Попап просмотра карточки
 const popupViewCard = document.querySelector('.popup_type_view-card');
 
+const viewCardImage = popupViewCard.querySelector('.popup__image');
+const viewCardAlt = popupViewCard.querySelector('.popup__image');
+const viewCardFigcaption = popupViewCard.querySelector('.popup__figcaption');
+
 const closeViewCard = popupViewCard.querySelector('.popup__close-button_type_view-card');
 
 // Профиль пользователя
@@ -75,9 +79,9 @@ const deleteCard = (event) => {
 // Показать карточку
 function viewCard(link, name) {
   openPopup(popupViewCard);
-  popupViewCard.querySelector('.popup__image').src = link;
-  popupViewCard.querySelector('.popup__image').alt = name + '.';
-  popupViewCard.querySelector('.popup__figcaption').textContent = name;
+  viewCardImage.src = link;
+  viewCardAlt.alt = name + '.';
+  viewCardFigcaption.textContent = name;
 }
 
 // Сгенерировать карточку
