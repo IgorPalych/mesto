@@ -113,7 +113,7 @@ initialCards.forEach(renderCard);
 
 
 // Обработчики отправки формы
-function profileFormSubmit(event) {
+function submitProfileForm(event) {
   event.preventDefault();
   if (inputName.value === '' || inputJob.value === '') {
     return;
@@ -124,7 +124,7 @@ function profileFormSubmit(event) {
   }
 }
 
-function addPlaceFormSubmit(event) {
+function submitPlaceForm(event) {
   event.preventDefault();
   if (inputTitle.value === '' || inputSrc.value === '') {
     return;
@@ -132,8 +132,7 @@ function addPlaceFormSubmit(event) {
     const placeInfo = {};
     placeInfo.name = inputTitle.value;
     placeInfo.link = inputSrc.value;
-    inputTitle.value = '';
-    inputSrc.value = '';
+    event.target.reset()
     renderCard(placeInfo);
     closePopup(popupAddPlace);
   }
@@ -156,8 +155,8 @@ function closePopup(popupName) {
 }
 
 // Отправить формы
-formEditProfile.addEventListener('submit', profileFormSubmit);
-formAddPlace.addEventListener('submit', addPlaceFormSubmit);
+formEditProfile.addEventListener('submit', submitProfileForm);
+formAddPlace.addEventListener('submit', submitPlaceForm);
 
 
 // Открыть и Закрыть попапы
