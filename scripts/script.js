@@ -4,9 +4,9 @@ const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const editProfileButton = document.querySelector('.profile__button_action_edit-profile');
 const closeEditProfileButton = popupEditProfile.querySelector('.popup__close-button_type_edit-profile');
 
-const formEditProfile = document.querySelector('.form_type_edit-profile');
-const inputName = formEditProfile.querySelector('.form__input_el_name');
-const inputJob = formEditProfile.querySelector('.form__input_el_job');
+const profileForm = document.forms['profile-form'];
+const inputName = profileForm.querySelector('.form__input_el_name');
+const inputJob = profileForm.querySelector('.form__input_el_job');
 
 // Попап добавления карточки
 const popupAddPlace = document.querySelector('.popup_type_add-place');
@@ -14,9 +14,9 @@ const popupAddPlace = document.querySelector('.popup_type_add-place');
 const addPlaceButton = document.querySelector('.profile__button_action_add-place');
 const closeAddPlaceButton = popupAddPlace.querySelector('.popup__close-button_type_add-place');
 
-const formAddPlace = document.querySelector('.form_type_add-place');
-const inputTitle = formAddPlace.querySelector('.form__input_el_place-title');
-const inputSrc = formAddPlace.querySelector('.form__input_el_place-image-src');
+const cardForm = document.forms['card-form'];
+const inputTitle = cardForm.querySelector('.form__input_el_place-title');
+const inputSrc = cardForm.querySelector('.form__input_el_place-image-src');
 
 // Попап просмотра карточки
 const popupViewCard = document.querySelector('.popup_type_view-card');
@@ -26,6 +26,9 @@ const viewCardAlt = popupViewCard.querySelector('.popup__image');
 const viewCardFigcaption = popupViewCard.querySelector('.popup__figcaption');
 
 const closeViewCard = popupViewCard.querySelector('.popup__close-button_type_view-card');
+
+// Коллекция кнопок "Закрыть попап"
+const closeButtons = document.querySelectorAll('.popup__close');
 
 // Профиль пользователя
 const userProfile = document.querySelector('.profile');
@@ -155,13 +158,28 @@ function closePopup(popupName) {
 }
 
 // Отправить формы
-formEditProfile.addEventListener('submit', submitProfileForm);
-formAddPlace.addEventListener('submit', submitPlaceForm);
+profileForm.addEventListener('submit', submitProfileForm);
+cardForm.addEventListener('submit', submitPlaceForm);
 
 
 // Открыть и Закрыть попапы
 editProfileButton.addEventListener('click', editProfile);
 addPlaceButton.addEventListener('click', () => { openPopup(popupAddPlace); });
-closeEditProfileButton.addEventListener('click', () => { closePopup(popupEditProfile); });
+
+closeButtons.forEach((button) => {
+  // находим 1 раз ближайший к крестику попап
+  const popup = button.closest('.popup');
+  // устанавливаем обработчик закрытия на крестик
+  button.addEventListener('click', () => closePopup(popup));
+});
+
+closeButtons.forEach((button) => {
+  // находим 1 раз ближайший к крестику попап
+  const popup = button.closest('.popup');
+  // устанавливаем обработчик закрытия на крестик
+  button.addEventListener('click', () => closePopup(popup));
+});
+
+/* closeEditProfileButton.addEventListener('click', () => { closePopup(popupEditProfile); });
 closeAddPlaceButton.addEventListener('click', () => { closePopup(popupAddPlace); });
-closeViewCard.addEventListener('click', () => { closePopup(popupViewCard); });
+closeViewCard.addEventListener('click', () => { closePopup(popupViewCard); }); */
