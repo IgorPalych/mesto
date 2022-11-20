@@ -87,14 +87,19 @@ function viewCard(link, name) {
 // Сгенерировать карточку
 const generateCard = (item) => {
   const newCard = cardTemplate.cloneNode(true);
-  const imageSrc = item.link;
-  const imageName = item.name;
-  newCard.querySelector('.card__title').textContent = item.name;
-  newCard.querySelector('.card__image').src = imageSrc;
-  newCard.querySelector('.card__image').alt = imageName + '.';
-  newCard.querySelector('.card__image').addEventListener('click', () => { viewCard(imageSrc, imageName) });
-  newCard.querySelector('.card__like').addEventListener('click', likeCard);
-  newCard.querySelector('.card__trash').addEventListener('click', deleteCard);
+  const cardTitle = newCard.querySelector('.card__title');
+  const cardImage = newCard.querySelector('.card__image');
+  const cardLike = newCard.querySelector('.card__like');
+  const cardTrash = newCard.querySelector('.card__trash');
+
+  cardTitle.textContent = item.name;
+  cardImage.src = item.link;
+  cardImage.alt = item.name + '.';
+
+  cardImage.addEventListener('click', () => { viewCard(item.link, item.name) });
+  cardLike.addEventListener('click', likeCard);
+  cardTrash.addEventListener('click', deleteCard);
+
   return newCard;
 };
 
