@@ -141,8 +141,8 @@ function submitPlaceForm(event) {
 // Редактировать профиль
 function editProfile() {
   openPopup(popupEditProfile);
-  inputName.value = userProfile.querySelector('.profile__name').textContent;
-  inputJob.value = userProfile.querySelector('.profile__job').textContent;
+  inputName.value = userName.textContent;
+  inputJob.value = userJob.textContent;
 }
 
 // Открыть/Закрыть попап
