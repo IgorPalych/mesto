@@ -109,9 +109,7 @@ const renderCard = (item) => {
 };
 
 // Отрисовать все карточки
-initialCards.forEach((item) => {
-  renderCard(item);
-});
+initialCards.forEach(renderCard);
 
 
 // Обработчики отправки формы
