@@ -22,7 +22,6 @@ const inputSrc = cardForm.querySelector('.form__input_el_place-image-src');
 const popupViewCard = document.querySelector('.popup_type_view-card');
 
 const viewCardImage = popupViewCard.querySelector('.popup__image');
-const viewCardAlt = popupViewCard.querySelector('.popup__image');
 const viewCardFigcaption = popupViewCard.querySelector('.popup__figcaption');
 
 const closeViewCard = popupViewCard.querySelector('.popup__close-button_type_view-card');
@@ -83,7 +82,7 @@ const deleteCard = (event) => {
 function viewCard(link, name) {
   openPopup(popupViewCard);
   viewCardImage.src = link;
-  viewCardAlt.alt = name + '.';
+  viewCardImage.alt = name + '.';
   viewCardFigcaption.textContent = name;
 }
 
@@ -172,14 +171,3 @@ closeButtons.forEach((button) => {
   // устанавливаем обработчик закрытия на крестик
   button.addEventListener('click', () => closePopup(popup));
 });
-
-closeButtons.forEach((button) => {
-  // находим 1 раз ближайший к крестику попап
-  const popup = button.closest('.popup');
-  // устанавливаем обработчик закрытия на крестик
-  button.addEventListener('click', () => closePopup(popup));
-});
-
-/* closeEditProfileButton.addEventListener('click', () => { closePopup(popupEditProfile); });
-closeAddPlaceButton.addEventListener('click', () => { closePopup(popupAddPlace); });
-closeViewCard.addEventListener('click', () => { closePopup(popupViewCard); }); */
