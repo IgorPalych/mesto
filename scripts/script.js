@@ -1,30 +1,28 @@
-// Попап профиля
+/*---------------- ИНИЦИАЛИЗАЦИЯ ПЕРЕМЕННЫХ ----------------*/
+
+// Попап и кнопка профиля
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 
 const editProfileButton = document.querySelector('.profile__button_action_edit-profile');
-const closeEditProfileButton = popupEditProfile.querySelector('.popup__close-button_type_edit-profile');
 
 const profileForm = document.forms['profile-form'];
 const inputName = profileForm.querySelector('.form__input_el_name');
 const inputJob = profileForm.querySelector('.form__input_el_job');
 
-// Попап добавления карточки
+// Попап и кнопка добавления карточки
 const popupAddPlace = document.querySelector('.popup_type_add-place');
 
 const addPlaceButton = document.querySelector('.profile__button_action_add-place');
-const closeAddPlaceButton = popupAddPlace.querySelector('.popup__close-button_type_add-place');
 
 const cardForm = document.forms['card-form'];
 const inputTitle = cardForm.querySelector('.form__input_el_place-title');
 const inputSrc = cardForm.querySelector('.form__input_el_place-image-src');
 
-// Попап просмотра карточки
+// Попап и кнопка просмотра карточки
 const popupViewCard = document.querySelector('.popup_type_view-card');
 
 const viewCardImage = popupViewCard.querySelector('.popup__image');
 const viewCardFigcaption = popupViewCard.querySelector('.popup__figcaption');
-
-const closeViewCard = popupViewCard.querySelector('.popup__close-button_type_view-card');
 
 // Коллекция кнопок "Закрыть попап"
 const closeButtons = document.querySelectorAll('.popup__close');
@@ -68,13 +66,16 @@ const cardsList = document.querySelector('.cards-list');
 // Шаблон карточки
 const cardTemplate = document.querySelector('#card-template').content.querySelector('.card');
 
+
+/*---------------- ФУНКЦИИ ---------------*/
+
 // Лайк карточки
-const likeCard = (event) => {
+function likeCard(event) {
   event.target.classList.toggle('card__like_active');
 };
 
 // Удалить карточку
-const deleteCard = (event) => {
+function deleteCard(event) {
   event.target.closest('.card').remove();
 };
 
@@ -87,7 +88,7 @@ function viewCard(link, name) {
 }
 
 // Сгенерировать карточку
-const generateCard = (item) => {
+function generateCard(item) {
   const newCard = cardTemplate.cloneNode(true);
   const cardTitle = newCard.querySelector('.card__title');
   const cardImage = newCard.querySelector('.card__image');
@@ -106,13 +107,9 @@ const generateCard = (item) => {
 };
 
 // Отрисовать отдельную карточку
-const renderCard = (item) => {
+function renderCard(item) {
   cardsList.prepend(generateCard(item));
 };
-
-// Отрисовать все карточки
-initialCards.forEach(renderCard);
-
 
 // Обработчики отправки формы
 function submitProfileForm(event) {
@@ -150,11 +147,37 @@ function editProfile() {
 // Открыть/Закрыть попап
 function openPopup(popupName) {
   popupName.classList.add('popup_opened');
+  // добавляем обработчики закрытия по Escape и клику на overlay
+  document.addEventListener('keydown', handleHotkey);
+  document.addEventListener('click', handleOverlayClick);
 }
 
 function closePopup(popupName) {
   popupName.classList.remove('popup_opened');
 }
+
+// Обработчик клика по оверлею
+function handleOverlayClick(event) {
+  const activePopup = document.querySelector('.popup_opened');
+  if (activePopup && event.target === activePopup) {
+    closePopup(activePopup);
+
+  }
+}
+
+// Обработчик нажатия кнопки Escape
+function handleHotkey(event) {
+  const activePopup = document.querySelector('.popup_opened');
+  if (activePopup && event.key === 'Escape') {
+    closePopup(activePopup);
+  }
+}
+
+
+/*----------------- ВЫЗОВ ФУНКЦИЙ --------------------*/
+
+// Отрисовать все карточки
+initialCards.forEach(renderCard);
 
 // Отправить формы
 profileForm.addEventListener('submit', submitProfileForm);
