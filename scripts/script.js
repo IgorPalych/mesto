@@ -16,7 +16,7 @@ const addPlaceButton = document.querySelector('.profile__button_action_add-place
 
 const cardForm = document.forms['card-form'];
 const inputTitle = cardForm.querySelector('.form__input_el_place-title');
-const inputSrc = cardForm.querySelector('.form__input_el_place-image-src');
+const inputURL = cardForm.querySelector('.form__input_el_place-image-src');
 
 // Попап и кнопка просмотра карточки
 const popupViewCard = document.querySelector('.popup_type_view-card');
@@ -125,12 +125,12 @@ function submitProfileForm(event) {
 
 function submitPlaceForm(event) {
   event.preventDefault();
-  if (inputTitle.value === '' || inputSrc.value === '') {
+  if (inputTitle.value === '' || inputURL.value === '') {
     return;
   } else {
     const placeInfo = {};
     placeInfo.name = inputTitle.value;
-    placeInfo.link = inputSrc.value;
+    placeInfo.link = inputURL.value;
     event.target.reset()
     renderCard(placeInfo);
     closePopup(popupAddPlace);

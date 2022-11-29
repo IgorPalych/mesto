@@ -40,10 +40,10 @@
   <div class="popup popup_type_edit-profile">
     <div class="popup__container">
       <h2 class="popup__header">Редактировать профиль</h2>
-      <form class="form" name="profile-form">
+      <form class="form" name="profile-form" novalidate>
         <fieldset class="form__inputs-container">
-          <input class="form__input form__input_el_name" type="text">
-          <input class="form__input form__input_el_job" type="text">
+          <input class="form__input form__input_el_name" type="text" required minlength="2" maxlength="40">
+          <input class="form__input form__input_el_job" type="text" required minlength="2" maxlength="40">
         </fieldset>
         <button class="form__submit" type="submit"><span class="form__submit-text">Сохранить</span></button>
       </form>
@@ -53,10 +53,12 @@
   <div class="popup popup_type_add-place">
     <div class="popup__container">
       <h2 class="popup__header">Новое место</h2>
-      <form class="form" name="card-form">
+      <form class="form" name="card-form" novalidate>
         <fieldset class="form__inputs-container">
-          <input class="form__input form__input_el_place-title" type="text" placeholder="Название">
-          <input class="form__input form__input_el_place-image-src" type="text" placeholder="Ссылка на картинку">
+          <input class="form__input form__input_el_place-title" type="text" placeholder="Название" required
+            minlength="2" maxlength="30">
+          <input class="form__input form__input_el_place-image-src" type="url" placeholder="Ссылка на картинку"
+            required>
         </fieldset>
         <button class="form__submit" type="submit"><span class="form__submit-text">Сохранить</span></button>
       </form>
@@ -83,6 +85,7 @@
   </template>
 
   <script src="./scripts/script.js" defer></script>
+  <script src="./scripts/validate.js" defer></script>
 </body>
 
 </html>

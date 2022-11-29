@@ -44,8 +44,11 @@
 @import url(../blocks/form/form.css);
 @import url(../blocks/form/__inputs-container/form__inputs-container.css);
 @import url(../blocks/form/__input/form__input.css);
+@import url(../blocks/form/__input/_type_error/form__input_type_error.css);
 @import url(../blocks/form/__submit/form__submit.css);
+@import url(../blocks/form/__submit/_disabled/form__submit_disabled.css);
 @import url(../blocks/form/__submit-text/form__submit-text.css);
+@import url(../blocks/form/__submit-text/_disabled/form__submit-text_disabled.css);
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
