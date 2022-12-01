@@ -10,9 +10,11 @@ function toggleButtonState(inputList, buttonElement) {
   // Если есть хотя бы один невалидный инпут
   if (hasInvalidInput(inputList)) {
     // сделай кнопку неактивной
+    buttonElement.setAttribute('disabled', true);
     buttonElement.classList.add('form__submit_disabled');
   } else {
     // иначе сделай кнопку активной
+    buttonElement.removeAttribute('disabled');
     buttonElement.classList.remove('form__submit_disabled');
   }
 };
