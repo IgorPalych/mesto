@@ -5,6 +5,11 @@
   border: 0;
   border-radius: 2px;
   background-color: #000;
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: #fff;
   cursor: pointer;
 }
 
@@ -15,5 +20,6 @@
 @media screen and (max-width: 600px) {
   .form__submit {
     height: 46px;
+    font-size: 14px;
   }
 }

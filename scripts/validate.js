@@ -19,7 +19,6 @@ function toggleButtonState(inputList, buttonElement, settings) {
   }
 };
 
-
 // Показать ошибку заполнения поля
 function showInputError(formElement, inputElement, errorMessage, settings) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
@@ -29,7 +28,6 @@ function showInputError(formElement, inputElement, errorMessage, settings) {
 
 }
 
-
 // Убрать ошибку заполнения поля
 function hideInputError(formElement, inputElement, settings) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
@@ -37,7 +35,6 @@ function hideInputError(formElement, inputElement, settings) {
   errorElement.textContent = '';
   errorElement.classList.remove(settings.errorClass);
 }
-
 
 // Проверить валидность заполнения поля
 function isValid(formElement, inputElement, settings) {
@@ -49,7 +46,6 @@ function isValid(formElement, inputElement, settings) {
     hideInputError(formElement, inputElement, settings);
   }
 };
-
 
 // Установить обработчики проверки на поля формы
 function setEventListener(formElement, settings) {
@@ -79,7 +75,7 @@ enableValidation({
   inputSelector: '.form__input', // готово
   submitButtonSelector: '.form__submit',  // готово
   inactiveButtonClass: 'form__submit_disabled',
-  inputErrorClass: 'form__input_type_error', // готово
+  inputErrorClass: 'form__input_error', // готово
   errorClass: 'form__error_visible' // готово
 });
 

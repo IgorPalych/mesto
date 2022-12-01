@@ -153,6 +153,7 @@ function openPopup(popupName) {
 }
 
 function closePopup(popupName) {
+  document.removeEventListener('keydown', handleHotkey);
   popupName.classList.remove('popup_opened');
 }
 

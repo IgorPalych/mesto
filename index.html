@@ -44,16 +44,16 @@
         <fieldset class="form__fields-container">
           <div class="form__field">
             <input id="name-input" class="form__input form__input_el_name" type="text" required minlength="2"
-              maxlength="40">
+              maxlength="40" autocomplete="off">
             <span class="form__error name-input-error"></span>
           </div>
           <div class="form__field">
             <input id="job-input" class="form__input form__input_el_job" type="text" required minlength="2"
-              maxlength="40">
+              maxlength="200" autocomplete="off">
             <span class="form__error job-input-error"></span>
           </div>
         </fieldset>
-        <button class="form__submit" type="submit"><span class="form__submit-text">Сохранить</span></button>
+        <button class="form__submit" type="submit">Сохранить</button>
       </form>
       <button class="popup__close" type="button"></button>
     </div>
@@ -65,16 +65,16 @@
         <fieldset class="form__fields-container">
           <div class="form__field">
             <input id="place-input" class="form__input form__input_el_place-title" type="text" placeholder="Название"
-              required minlength="2" maxlength="30">
+              required minlength="2" maxlength="30" autocomplete="off">
             <span class="form__error place-input-error"></span>
           </div>
           <div class="form__field">
             <input id="url-input" class="form__input form__input_el_place-image-src" type="url"
-              placeholder="Ссылка на картинку" required>
+              placeholder="Ссылка на картинку" required autocomplete="off">
             <span class="form__error url-input-error"></span>
           </div>
         </fieldset>
-        <button class="form__submit" type="submit"><span class="form__submit-text">Сохранить</span></button>
+        <button class="form__submit" type="submit">Сохранить</button>
       </form>
       <button class="popup__close" type="button"></button>
     </div>
@@ -98,8 +98,8 @@
     </li>
   </template>
 
-  <script src="./scripts/script.js" defer></script>
-  <script src="./scripts/validate.js" defer></script>
+  <script src="./scripts/script.js"></script>
+  <script src="./scripts/validate.js"></script>
 </body>
 
 </html>
