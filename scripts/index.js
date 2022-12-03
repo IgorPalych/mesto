@@ -3,7 +3,7 @@
 // Попап и кнопка профиля
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 
-const editProfileButton = document.querySelector('.profile__button_action_edit-profile');
+const buttonEditProfile = document.querySelector('.profile__button_action_edit-profile');
 
 const profileForm = document.forms['profile-form'];
 const inputName = profileForm.querySelector('.form__input_el_name');
@@ -12,7 +12,7 @@ const inputJob = profileForm.querySelector('.form__input_el_job');
 // Попап и кнопка добавления карточки
 const popupAddPlace = document.querySelector('.popup_type_add-place');
 
-const addPlaceButton = document.querySelector('.profile__button_action_add-place');
+const buttonAddPlace = document.querySelector('.profile__button_action_add-place');
 
 const cardForm = document.forms['card-form'];
 const inputTitle = cardForm.querySelector('.form__input_el_place-title');
@@ -32,34 +32,6 @@ const userProfile = document.querySelector('.profile');
 const userName = userProfile.querySelector('.profile__name');
 const userJob = userProfile.querySelector('.profile__job');
 
-// Массив карточек
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
 // HTML-элемент списка карточек
 const cardsList = document.querySelector('.cards-list');
 
@@ -69,7 +41,7 @@ const cardTemplate = document.querySelector('#card-template').content.querySelec
 
 /*---------------- ФУНКЦИИ ---------------*/
 
-// Лайк карточки
+// Лайкнуть карточку
 function likeCard(event) {
   event.target.classList.toggle('card__like_active');
 };
@@ -81,10 +53,10 @@ function deleteCard(event) {
 
 // Показать карточку
 function viewCard(link, name) {
-  openPopup(popupViewCard);
   viewCardImage.src = link;
-  viewCardImage.alt = name + '.';
+  viewCardImage.alt = `${name}.`;
   viewCardFigcaption.textContent = name;
+  openPopup(popupViewCard);
 }
 
 // Сгенерировать карточку
@@ -97,7 +69,7 @@ function generateCard(item) {
 
   cardTitle.textContent = item.name;
   cardImage.src = item.link;
-  cardImage.alt = item.name + '.';
+  cardImage.alt = `${item.name}.`;
 
   cardImage.addEventListener('click', () => { viewCard(item.link, item.name) });
   cardLike.addEventListener('click', likeCard);
@@ -142,12 +114,14 @@ function editProfile() {
   openPopup(popupEditProfile);
   inputName.value = userName.textContent;
   inputJob.value = userJob.textContent;
+  const buttonFormSubmit = popupEditProfile.querySelector('.form__submit');
+  buttonFormSubmit.setAttribute('disabled', true);
+  buttonFormSubmit.classList.add('form__submit_disabled');
 }
 
 // Открыть/Закрыть попап
 function openPopup(popupName) {
   popupName.classList.add('popup_opened');
-  // добавляем обработчики закрытия по Escape и клику на overlay
   document.addEventListener('keydown', handleHotkey);
   document.addEventListener('click', handleOverlayClick);
 }
@@ -168,8 +142,8 @@ function handleOverlayClick(event) {
 
 // Обработчик нажатия кнопки Escape
 function handleHotkey(event) {
-  const activePopup = document.querySelector('.popup_opened');
-  if (activePopup && event.key === 'Escape') {
+  if (event.key === 'Escape') {
+    const activePopup = document.querySelector('.popup_opened');
     closePopup(activePopup);
   }
 }
@@ -186,12 +160,17 @@ cardForm.addEventListener('submit', submitPlaceForm);
 
 
 // Открыть и Закрыть попапы
-editProfileButton.addEventListener('click', editProfile);
-addPlaceButton.addEventListener('click', () => { openPopup(popupAddPlace); });
+buttonEditProfile.addEventListener('click', editProfile);
+buttonAddPlace.addEventListener('click', () => {
+  openPopup(popupAddPlace);
+  const buttonFormSubmit = popupAddPlace.querySelector('.form__submit');
+  buttonFormSubmit.setAttribute('disabled', true);
+  buttonFormSubmit.classList.add('form__submit_disabled');
+});
 
 closeButtons.forEach((button) => {
-  // находим 1 раз ближайший к крестику попап
+  // найти ближайший к крестику попап
   const popup = button.closest('.popup');
-  // устанавливаем обработчик закрытия на крестик
+  // установить обработчик закрытия на крестик
   button.addEventListener('click', () => closePopup(popup));
 });

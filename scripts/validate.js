@@ -9,11 +9,11 @@ function hasInvalidInput(inputList) {
 function toggleButtonState(inputList, buttonElement, settings) {
   // Если есть хотя бы один невалидный инпут
   if (hasInvalidInput(inputList)) {
-    // сделай кнопку неактивной
+    // сделать кнопку неактивной
     buttonElement.setAttribute('disabled', true);
     buttonElement.classList.add(settings.inactiveButtonClass);
   } else {
-    // иначе сделай кнопку активной
+    // иначе сделать кнопку активной
     buttonElement.removeAttribute('disabled');
     buttonElement.classList.remove(settings.inactiveButtonClass);
   }
@@ -39,10 +39,10 @@ function hideInputError(formElement, inputElement, settings) {
 // Проверить валидность заполнения поля
 function isValid(formElement, inputElement, settings) {
   if (!inputElement.validity.valid) {
-    // Если поле не проходит валидацию, покажем ошибку
+    // Если поле не проходит валидацию, показать ошибку
     showInputError(formElement, inputElement, inputElement.validationMessage, settings);
   } else {
-    // Если проходит, скроем
+    // Если проходит, скрыть ошибку
     hideInputError(formElement, inputElement, settings);
   }
 };
@@ -71,12 +71,12 @@ function enableValidation(settings) {
 
 
 enableValidation({
-  formSelector: '.form', // готово
-  inputSelector: '.form__input', // готово
-  submitButtonSelector: '.form__submit',  // готово
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__submit',
   inactiveButtonClass: 'form__submit_disabled',
-  inputErrorClass: 'form__input_error', // готово
-  errorClass: 'form__error_visible' // готово
+  inputErrorClass: 'form__input_error',
+  errorClass: 'form__error_visible'
 });
 
 
