@@ -1,6 +1,12 @@
-import { initialCards } from "./Card.js";
+import { Card } from './Card.js';
+import { FormValidator } from './FormValidator.js';
+export { viewCard };
+
 
 /*---------------- ИНИЦИАЛИЗАЦИЯ ПЕРЕМЕННЫХ ----------------*/
+
+// HTML-элементы форм
+const formList = Array.from(document.querySelectorAll('.form'));
 
 // Попап и кнопка профиля
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
@@ -37,21 +43,45 @@ const userJob = userProfile.querySelector('.profile__job');
 // HTML-элемент списка карточек
 const cardsList = document.querySelector('.cards-list');
 
-// Шаблон карточки
-const cardTemplate = document.querySelector('#card-template').content.querySelector('.card');
+// Массив карточек
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
 
+// Настройки валидации
+const settings = {
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__submit',
+  inactiveButtonClass: 'form__submit_disabled',
+  inputErrorClass: 'form__input_error',
+  errorClass: 'form__error_visible'
+}
 
 /*---------------- ФУНКЦИИ ---------------*/
-
-// Лайкнуть карточку
-function likeCard(event) {
-  event.target.classList.toggle('card__like_active');
-};
-
-// Удалить карточку
-function deleteCard(event) {
-  event.target.closest('.card').remove();
-};
 
 // Показать карточку
 function viewCard(link, name) {
@@ -61,28 +91,10 @@ function viewCard(link, name) {
   openPopup(popupViewCard);
 }
 
-// Сгенерировать карточку
-function generateCard(item) {
-  const newCard = cardTemplate.cloneNode(true);
-  const cardTitle = newCard.querySelector('.card__title');
-  const cardImage = newCard.querySelector('.card__image');
-  const cardLike = newCard.querySelector('.card__like');
-  const cardTrash = newCard.querySelector('.card__trash');
-
-  cardTitle.textContent = item.name;
-  cardImage.src = item.link;
-  cardImage.alt = `${item.name}.`;
-
-  cardImage.addEventListener('click', () => { viewCard(item.link, item.name) });
-  cardLike.addEventListener('click', likeCard);
-  cardTrash.addEventListener('click', deleteCard);
-
-  return newCard;
-};
-
-// Отрисовать отдельную карточку
+// Отрисовать карточки
 function renderCard(item) {
-  cardsList.prepend(generateCard(item));
+  const card = new Card(item);
+  cardsList.prepend(card.getView());
 };
 
 // Обработчики отправки формы
@@ -111,14 +123,18 @@ function submitPlaceForm(event) {
   }
 }
 
+function disabledFormSubmit(popupElement) {
+  const buttonFormSubmit = popupElement.querySelector('.form__submit');
+  buttonFormSubmit.setAttribute('disabled', true);
+  buttonFormSubmit.classList.add('form__submit_disabled');
+}
+
 // Редактировать профиль
 function editProfile() {
   openPopup(popupEditProfile);
   inputName.value = userName.textContent;
   inputJob.value = userJob.textContent;
-  const buttonFormSubmit = popupEditProfile.querySelector('.form__submit');
-  buttonFormSubmit.setAttribute('disabled', true);
-  buttonFormSubmit.classList.add('form__submit_disabled');
+  disabledFormSubmit(popupEditProfile);
 }
 
 // Открыть/Закрыть попап
@@ -156,6 +172,11 @@ function handleHotkey(event) {
 // Отрисовать все карточки
 initialCards.forEach(renderCard);
 
+formList.forEach(item => {
+  const formElement = new FormValidator(settings, item)
+  formElement.enableValidation();
+});
+
 // Отправить формы
 profileForm.addEventListener('submit', submitProfileForm);
 cardForm.addEventListener('submit', submitPlaceForm);
@@ -165,9 +186,7 @@ cardForm.addEventListener('submit', submitPlaceForm);
 buttonEditProfile.addEventListener('click', editProfile);
 buttonAddPlace.addEventListener('click', () => {
   openPopup(popupAddPlace);
-  const buttonFormSubmit = popupAddPlace.querySelector('.form__submit');
-  buttonFormSubmit.setAttribute('disabled', true);
-  buttonFormSubmit.classList.add('form__submit_disabled');
+  disabledFormSubmit(popupAddPlace);
 });
 
 closeButtons.forEach((button) => {
@@ -176,3 +195,5 @@ closeButtons.forEach((button) => {
   // установить обработчик закрытия на крестик
   button.addEventListener('click', () => closePopup(popup));
 });
+
+
