@@ -8,26 +8,17 @@ export class FormValidator {
     this._errorClass = settings.errorClass;
 
     this._formElement = formElement;
+
+    this._submitButton = this._formElement.querySelector(this._submitButtonSelector);
+    this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
   }
 
   // Проверить валидность заполнения полей формы
-  _hasInvalidInput(inputList) {
-    return inputList.some(inputElement => {
+  _hasInvalidInput() {
+    return this._inputList.some(inputElement => {
       return !inputElement.validity.valid;
     });
   }
-
-  // Включить/отключить кнопку формы
-  _toggleButtonState(inputList) {
-    const buttonElement = this._formElement.querySelector(this._submitButtonSelector);
-    if (this._hasInvalidInput(inputList)) {
-      buttonElement.setAttribute('disabled', true);
-      buttonElement.classList.add(this._inactiveButtonClass);
-    } else {
-      buttonElement.removeAttribute('disabled');
-      buttonElement.classList.remove(this._inactiveButtonClass);
-    }
-  };
 
   // Показать ошибку заполнения поля
   _showInputError(inputElement, errorMessage) {
@@ -57,18 +48,34 @@ export class FormValidator {
 
   // Установить обработчики проверки на поля формы
   _setEventListener() {
-    const inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
-
-    inputList.forEach(item => {
+    this._inputList.forEach(item => {
       item.addEventListener('input', () => {
         this._isValid(item);
-        this._toggleButtonState(inputList);
+        this.toggleButtonState();
       });
     });
+    this.toggleButtonState();
   }
+
+  hideInputErrors() {
+    this._inputList.forEach(input => this._hideInputError(input));
+  }
+
+  // Включить/отключить кнопку формы
+  toggleButtonState() {
+
+    if (this._hasInvalidInput()) {
+      this._submitButton.setAttribute('disabled', true);
+      this._submitButton.classList.add(this._inactiveButtonClass);
+    } else {
+      this._submitButton.removeAttribute('disabled');
+      this._submitButton.classList.remove(this._inactiveButtonClass);
+    }
+  };
 
   // Запустить установку обработчиков всем формам
   enableValidation() {
     this._setEventListener();
+    //this._disabledFormSubmit();
   }
 }
