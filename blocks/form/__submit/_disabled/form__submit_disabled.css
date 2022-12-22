@@ -3,6 +3,7 @@
   background-color: #fff;
   color: #000;
   opacity: .2;
+  cursor: default;
 }
 
 .form__submit_disabled:hover {
