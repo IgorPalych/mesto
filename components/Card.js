@@ -1,18 +1,18 @@
-import { viewCard } from './index.js';
+import { viewCard } from '../pages/index.js';
 
-export class Card {
+export default class Card {
   constructor({ name, link }) {
     this._name = name;
     this._link = link;
   }
 
   _getTemplate() {
-    const card = document
+    const cardTemplate = document
       .querySelector('#card-template')
       .content.querySelector('.card')
       .cloneNode(true);
 
-    return card;
+    return cardTemplate;
   }
 
   _setData() {
@@ -45,7 +45,7 @@ export class Card {
     cardImage.addEventListener('click', () => { viewCard(this._link, this._name) });
   }
 
-  getView() {
+  getCardView() {
     this._newCard = this._getTemplate();
     this._setData();
     this._setEventListeners();

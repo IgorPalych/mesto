@@ -1,10 +1,11 @@
-import { Card } from './Card.js';
-import { FormValidator } from './FormValidator.js';
-import { initialCards, settings } from './constants.js';
+import Card from '../components/Card.js';
+import Section from '../components/Section.js';
+import { FormValidator } from '../components/FormValidator.js';
+import { cardsData, settings } from '../scripts/constants.js';
 export { viewCard };
 
 
-/*---------------- ИНИЦИАЛИЗАЦИЯ ПЕРЕМЕННЫХ ----------------*/
+/*s----Array------------ ИНИЦИАЛИЗАЦИЯ ПЕРЕМЕННЫХ ----------------*/
 
 // Попап и кнопка профиля
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
@@ -34,17 +35,12 @@ const userName = userProfile.querySelector('.profile__name');
 const userJob = userProfile.querySelector('.profile__job');
 
 // HTML-элемент списка карточек
-const cardsList = document.querySelector('.cards-list');
+const cardsListElement = document.querySelector('.cards-list');
 
 
 
 /*---------------- ФУНКЦИИ ---------------*/
 
-// Отрисовать карточки на странице
-function renderCard(item) {
-  const card = new Card(item);
-  cardsList.prepend(card.getView());
-};
 
 
 // Показать карточку
@@ -76,7 +72,7 @@ function submitPlaceForm(event) {
     const placeInfo = {};
     placeInfo.name = inputTitle.value;
     placeInfo.link = inputURL.value;
-    renderCard(placeInfo);
+    renderCards(placeInfo);
     closePopup(popupAddPlace);
   }
   event.target.reset();
@@ -137,7 +133,18 @@ cardForm.addEventListener('submit', submitPlaceForm);
 
 /*----------- ЗАПУСК ЦИКЛОВ и ВЫЗОВ ФУНКЦИЙ ----------*/
 
-initialCards.forEach(item => renderCard(item)); // Отрисовать карточки на странице
+
+const cardsList = new Section({
+  items: cardsData,
+  renderer: (item) => {
+    const card = new Card(item);
+    const cardElement = card.getCardView();
+    cardsList.addItem(cardElement);
+  }
+}, cardsListElement);
+
+cardsList.renderItems();
+
 
 
 const validatorProfileForm = new FormValidator(settings, profileForm); //
