@@ -1,9 +1,8 @@
-import { viewCard } from '../pages/index.js';
-
 export default class Card {
-  constructor({ name, link }) {
-    this._name = name;
-    this._link = link;
+  constructor({ data, handleCardClick }) {
+    this._name = data.name;
+    this._link = data.link;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -42,10 +41,10 @@ export default class Card {
     deleteButton.addEventListener('click', () => { this._deleteCard() });
 
     const cardImage = this._newCard.querySelector('.card__image');
-    cardImage.addEventListener('click', () => { viewCard(this._link, this._name) });
+    cardImage.addEventListener('click', () => { this._handleCardClick(); });
   }
 
-  getCardView() {
+  generateCard() {
     this._newCard = this._getTemplate();
     this._setData();
     this._setEventListeners();
