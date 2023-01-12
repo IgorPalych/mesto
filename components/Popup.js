@@ -13,7 +13,7 @@ export default class Popup {
 
   _handleOverlayClick(event) {
     if (event.target.classList.contains('popup_opened')) {
-      this.close()
+      this.close();
     }
   }
 
