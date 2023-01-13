@@ -2,6 +2,7 @@ import Card from '../components/Card.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
 import FormValidator from '../components/FormValidator.js';
 import { cardsData, settings } from '../scripts/constants.js';
 
@@ -17,7 +18,7 @@ const popupEditProfileSelector = '.popup_type_edit-profile';
 const inputPlaceID = 'place-input';
 const inputUrlID = 'url-input';
 const inputNameID = 'name-input';
-const inputJobID = 'url-input';
+const inputJobID = 'job-input';
 
 
 // Попап и кнопка профиля
@@ -32,51 +33,13 @@ const cardForm = document.forms['card-form'];
 
 
 // Профиль пользователя
-const userProfile = document.querySelector('.profile');
-const userName = userProfile.querySelector('.profile__name');
-const userJob = userProfile.querySelector('.profile__job');
+const nameElementSelector = '.profile__name';
+const jobElementSelector = '.profile__job';
 
 // HTML-элемент списка карточек
 const cardsListElement = document.querySelector('.cards-list');
 
 
-
-/*---------------- ФУНКЦИИ ---------------*/
-
-
-/* // Обработчики отправки формы
-function submitProfileForm(event) {
-  event.preventDefault();
-  if (inputName.value === '' || inputJob.value === '') {
-    return;
-  } else {
-    userName.textContent = inputName.value;
-    userJob.textContent = inputJob.value;
-    closePopup(popupEditProfile);
-  }
-}
-
-function submitPlaceForm(event) {
-  event.preventDefault();
-  if (inputTitle.value === '' || inputURL.value === '') {
-    return;
-  } else {
-    const placeInfo = {};
-    placeInfo.name = inputTitle.value;
-    placeInfo.link = inputURL.value;
-    renderCards(placeInfo);
-    closePopup(popupAddPlace);
-  }
-  event.target.reset();
-  validatorPlaceForm.toggleButtonState();
-} */
-
-/* // Редактировать профиль
-function editProfile() {
-  openPopup(popupEditProfile);
-  inputName.value = userName.textContent;
-  inputJob.value = userJob.textContent;
-} */
 
 
 // Создать карточку
@@ -107,11 +70,17 @@ const cardsList = new Section({
 cardsList.renderItems();
 
 
+const userInfo = new UserInfo({ name: nameElementSelector, job: jobElementSelector });
+
+
 // Попапы с формами
 
 const popupEditProfile = new PopupWithForm({
   handleFormSubmit: (values) => {
-
+    const userData = {};
+    userData.name = values[inputNameID];
+    userData.job = values[inputJobID];
+    userInfo.setUserInfo(userData);
     popupEditProfile.close();
   }
 }, popupEditProfileSelector);
@@ -134,8 +103,8 @@ const popupAddPlace = new PopupWithForm({
 // Установить слушатели на кнопки editProfile и add Place
 
 buttonEditProfile.addEventListener('click', () => {
-  popupAddPlace.open();
-  popupAddPlace.setEventListeners();
+  popupEditProfile.open();
+  popupEditProfile.setEventListeners();
 });
 
 
