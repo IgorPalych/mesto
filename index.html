@@ -43,12 +43,12 @@
       <form class="form" name="profile-form" novalidate>
         <fieldset class="form__fields-container">
           <div class="form__field">
-            <input id="name-input" class="form__input  form__input_el_name" type="text" required minlength="2"
-              maxlength="40" autocomplete="off">
+            <input id="name-input" name="name" class="form__input form__input_el_name" type="text" required
+              minlength="2" maxlength="40" autocomplete="off">
             <span class="form__error name-input-error"></span>
           </div>
           <div class="form__field">
-            <input id="job-input" class="form__input form__input_el_job" type="text" required minlength="2"
+            <input id="job-input" name="job" class="form__input form__input_el_job" type="text" required minlength="2"
               maxlength="200" autocomplete="off">
             <span class="form__error job-input-error"></span>
           </div>
@@ -64,13 +64,13 @@
       <form class="form" name="card-form" novalidate>
         <fieldset class="form__fields-container">
           <div class="form__field">
-            <input id="place-input" class="form__input form__input_el_place" type="text" placeholder="Название" required
-              minlength="2" maxlength="30" autocomplete="off">
+            <input id="place-input" name="name" class="form__input form__input_el_place-title" type="text"
+              placeholder="Название" required minlength="2" maxlength="30" autocomplete="off">
             <span class="form__error place-input-error"></span>
           </div>
           <div class="form__field">
-            <input id="url-input" class="form__input form__input_el_url" type="url" placeholder="Ссылка на картинку"
-              required autocomplete="off">
+            <input id="url-input" name="link" class="form__input form__input_el_place-image" type="url"
+              placeholder="Ссылка на картинку" required autocomplete="off">
             <span class="form__error url-input-error"></span>
           </div>
         </fieldset>

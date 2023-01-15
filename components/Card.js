@@ -10,7 +10,6 @@ export default class Card {
       .querySelector('#card-template')
       .content.querySelector('.card')
       .cloneNode(true);
-
     return cardTemplate;
   }
 
@@ -23,9 +22,8 @@ export default class Card {
     cardImage.alt = `${this._name}.`;
   }
 
-  _likeCard() {
-    const likeButton = this._newCard.querySelector('.card__like');
-    likeButton.classList.toggle('card__like_active');
+  _likeCard(buttonElement) {
+    buttonElement.classList.toggle('card__like_active');
   }
 
   _deleteCard() {
@@ -35,7 +33,7 @@ export default class Card {
 
   _setEventListeners() {
     const likeButton = this._newCard.querySelector('.card__like');
-    likeButton.addEventListener('click', () => { this._likeCard() });
+    likeButton.addEventListener('click', () => { this._likeCard(likeButton) });
 
     const deleteButton = this._newCard.querySelector('.card__delete');
     deleteButton.addEventListener('click', () => { this._deleteCard() });

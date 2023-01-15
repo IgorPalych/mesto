@@ -54,7 +54,7 @@ export default class FormValidator {
         this.toggleButtonState();
       });
     });
-    this.toggleButtonState();
+
   }
 
   hideInputErrors() {
@@ -63,7 +63,6 @@ export default class FormValidator {
 
   // Включить/отключить кнопку формы
   toggleButtonState() {
-
     if (this._hasInvalidInput()) {
       this._submitButton.setAttribute('disabled', true);
       this._submitButton.classList.add(this._inactiveButtonClass);
@@ -75,7 +74,7 @@ export default class FormValidator {
 
   // Запустить установку обработчиков всем формам
   enableValidation() {
+    this.toggleButtonState();
     this._setEventListener();
-    //this._disabledFormSubmit();
   }
 }
