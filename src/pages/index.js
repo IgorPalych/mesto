@@ -5,13 +5,13 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import FormValidator from '../components/FormValidator.js';
 
+import './index.css';
+
 import {
   cardsData,
   cardsListElement,
   profileNameInput,
   profileJobInput,
-  placeTitleInput,
-  placeImageInput,
   popupWithImageSelector,
   popupPlaceFormSelector,
   popupEditProfileSelector,
