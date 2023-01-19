@@ -51,18 +51,23 @@ export default class FormValidator {
     this._inputList.forEach(item => {
       item.addEventListener('input', () => {
         this._isValid(item);
-        this.toggleButtonState();
+        this._toggleButtonState();
       });
     });
 
   }
 
-  hideInputErrors() {
-    this._inputList.forEach(input => this._hideInputError(input));
+  resetValidation() {
+    this._toggleButtonState();
+
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement)
+    });
+
   }
 
   // Включить/отключить кнопку формы
-  toggleButtonState() {
+  _toggleButtonState() {
     if (this._hasInvalidInput()) {
       this._submitButton.setAttribute('disabled', true);
       this._submitButton.classList.add(this._inactiveButtonClass);
@@ -74,7 +79,6 @@ export default class FormValidator {
 
   // Запустить установку обработчиков всем формам
   enableValidation() {
-    this.toggleButtonState();
     this._setEventListener();
   }
 }

@@ -10,6 +10,7 @@ import './index.css';
 import {
   cardsData,
   cardsListElement,
+  cardTemplateID,
   profileNameInput,
   profileJobInput,
   popupWithImageSelector,
@@ -19,18 +20,27 @@ import {
   buttonAddPlace,
   nameFieldSelector,
   jobFieldSelector,
-  profileForm,
-  cardForm,
   validationSettings
 } from '../scripts/constants.js';
 
 
-// Установить валидацию форм
-const validatorProfileForm = new FormValidator(validationSettings, profileForm);
-validatorProfileForm.enableValidation();
+const formValidators = {}
 
-const validatorPlaceForm = new FormValidator(validationSettings, cardForm);
-validatorPlaceForm.enableValidation();
+// Включение валидации
+const enableValidation = (validationSettings) => {
+  const formList = Array.from(document.querySelectorAll(validationSettings.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(validationSettings, formElement)
+    // получаем данные из атрибута `name` у формы
+    const formName = formElement.getAttribute('name')
+
+    // вот тут в объект записываем под именем формы
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(validationSettings);
 
 
 // Экземпляр класса для управления профилем пользователя
@@ -42,11 +52,9 @@ const createCard = (data) => {
   const card = new Card({
     data,
     handleCardClick: () => {
-      const popup = new PopupWithImage(data, popupWithImageSelector);
-      popup.open();
-      popup.setEventListeners();
+      popupWithImage.open(data);
     }
-  });
+  }, cardTemplateID);
   const cardElement = card.generateCard();
   return cardElement;
 };
@@ -65,6 +73,10 @@ cardsList.renderItems();
 
 
 // Попапы с формами
+
+const popupWithImage = new PopupWithImage(popupWithImageSelector);
+popupWithImage.setEventListeners();
+
 
 const popupEditProfile = new PopupWithForm({
   handleFormSubmit: (values) => {
@@ -87,15 +99,13 @@ popupAddPlace.setEventListeners();
 // Установить слушатели на кнопки editProfile и add Place
 
 buttonEditProfile.addEventListener('click', () => {
-  validatorProfileForm.toggleButtonState();
-  const userData = userInfo.getUserInfo();
-  profileNameInput.value = userData.name;
-  profileJobInput.value = userData.job;
+  formValidators['profile-form'].resetValidation();
+  popupEditProfile.setInputValues(userInfo.getUserInfo());
   popupEditProfile.open();
 });
 
 buttonAddPlace.addEventListener('click', () => {
-  validatorPlaceForm.toggleButtonState();
+  formValidators['card-form'].resetValidation();
   popupAddPlace.open();
 });
 

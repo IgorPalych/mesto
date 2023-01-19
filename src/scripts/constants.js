@@ -52,6 +52,10 @@ export const popupPlaceFormSelector = '.popup_type_add-place';
 export const popupEditProfileSelector = '.popup_type_edit-profile';
 
 
+// Селектор
+export const cardTemplateID = '#card-template';
+
+
 // Селекторы элементов профиля пользователя
 export const nameFieldSelector = '.profile__name';
 export const jobFieldSelector = '.profile__job';

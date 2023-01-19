@@ -1,25 +1,23 @@
 export default class Card {
-  constructor({ data, handleCardClick }) {
+  constructor({ data, handleCardClick }, templateID) {
     this._name = data.name;
     this._link = data.link;
     this._handleCardClick = handleCardClick;
+    this._templateID = templateID;
   }
 
   _getTemplate() {
     const cardTemplate = document
-      .querySelector('#card-template')
+      .querySelector(this._templateID)
       .content.querySelector('.card')
       .cloneNode(true);
     return cardTemplate;
   }
 
   _setData() {
-    const cardTitle = this._newCard.querySelector('.card__title');
-    const cardImage = this._newCard.querySelector('.card__image');
-
-    cardTitle.textContent = this._name;
-    cardImage.src = this._link;
-    cardImage.alt = `${this._name}.`;
+    this._cardTitle.textContent = this._name;
+    this._cardImage.src = this._link;
+    this._cardImage.alt = `${this._name}.`;
   }
 
   _likeCard(buttonElement) {
@@ -32,18 +30,18 @@ export default class Card {
   }
 
   _setEventListeners() {
-    const likeButton = this._newCard.querySelector('.card__like');
-    likeButton.addEventListener('click', () => { this._likeCard(likeButton) });
-
-    const deleteButton = this._newCard.querySelector('.card__delete');
-    deleteButton.addEventListener('click', () => { this._deleteCard() });
-
-    const cardImage = this._newCard.querySelector('.card__image');
-    cardImage.addEventListener('click', () => { this._handleCardClick(); });
+    this._cardLike.addEventListener('click', () => { this._likeCard(likeButton) });
+    this._cardDelete.addEventListener('click', () => { this._deleteCard() });
+    this._cardImage.addEventListener('click', () => { this._handleCardClick(); });
   }
 
   generateCard() {
     this._newCard = this._getTemplate();
+    this._cardTitle = this._newCard.querySelector('.card__title');
+    this._cardImage = this._newCard.querySelector('.card__image');
+    this._cardLike = this._newCard.querySelector('.card__like');
+    this._cardDelete = this._newCard.querySelector('.card__delete');
+
     this._setData();
     this._setEventListeners();
 
