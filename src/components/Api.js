@@ -30,8 +30,8 @@ export default class Api {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        name: data.name,
-        about: data.about
+        "name": data.name,
+        "about": data.about
       })
     })
       .then(res => this._checkResponse(res));
@@ -42,6 +42,26 @@ export default class Api {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({ "avatar": data.avatar })
+    })
+      .then(res => this._checkResponse(res));
+  }
+
+  addNewPlace(data) {
+    return fetch(`${this._url}/cards`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({
+        "name": data.name,
+        "link": data.link
+      })
+    })
+      .then(res => this._checkResponse(res));
+  }
+
+  deletePlace(id) {
+    return fetch(`${this._url}/cards/${id}`, {
+      method: 'DELETE',
+      headers: this._headers,
     })
       .then(res => this._checkResponse(res));
   }

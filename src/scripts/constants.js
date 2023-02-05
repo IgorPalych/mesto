@@ -27,10 +27,11 @@ export const placeImageInput = cardForm.querySelector('.form__input_el_place-ima
 
 
 // Селекторы попапов
-export const popupWithImageSelector = '.popup_type_view-card';
-export const popupPlaceFormSelector = '.popup_type_add-place';
 export const popupEditAvatarSelector = '.popup_type_edit-avatar'
 export const popupEditProfileSelector = '.popup_type_edit-profile';
+export const popupWithImageSelector = '.popup_type_view-card';
+export const popupAddPlaceSelector = '.popup_type_add-place';
+export const popupDeletePlaceSelector = '.popup_type_delete-place';
 
 
 // Селектор

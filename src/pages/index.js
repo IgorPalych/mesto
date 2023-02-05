@@ -13,16 +13,17 @@ import {
   cardsListElement,
   cardTemplateID,
   popupWithImageSelector,
-  popupPlaceFormSelector,
   popupEditProfileSelector,
+  popupEditAvatarSelector,
+  popupAddPlaceSelector,
+  popupDeletePlaceSelector,
   buttonEditAvatar,
   buttonEditProfile,
   buttonAddPlace,
   nameFieldSelector,
   aboutFieldSelector,
   avatarFieldSelector,
-  validationSettings,
-  popupEditAvatarSelector
+  validationSettings
 } from '../scripts/constants.js';
 
 
@@ -58,8 +59,21 @@ api.getInitialCards()
 const createCard = (data) => {
   const card = new Card({
     data,
+    userName: document.querySelector(nameFieldSelector).textContent,
     handleCardClick: () => {
       popupWithImage.open(data);
+    },
+    handleDeleteClick: (id) => {
+      const popupDeletePlace = new PopupWithForm({
+        handleFormSubmit: () => {
+          api.deletePlace(id)
+            .then(() => card.deleteCard())
+            .catch(err => console.log(`Ошибка: ${err}`));
+        }
+      }, popupDeletePlaceSelector);
+
+      popupDeletePlace.setEventListeners();
+      popupDeletePlace.open()
     }
   }, cardTemplateID);
   const cardElement = card.generateCard();
@@ -104,10 +118,9 @@ popupEditAvatar.setEventListeners();
 
 const popupEditProfile = new PopupWithForm({
   handleFormSubmit: (values) => {
-    console.log(values);
     api.editUserInfo(values)
       .then((data) => { userInfo.renderUserInfo(data); })
-      .catch(err => console.log(`Ошибка: ${err}`));;
+      .catch(err => console.log(`Ошибка: ${err}`));
   }
 }, popupEditProfileSelector);
 
@@ -116,11 +129,16 @@ popupEditProfile.setEventListeners();
 
 const popupAddPlace = new PopupWithForm({
   handleFormSubmit: (values) => {
-    cardsList.addItem(createCard(values));
+    api.addNewPlace(values)
+      .then((data) => { cardsListElement.prepend(createCard(data)); })
+      .catch(err => console.log(`Ошибка: ${err}`));
+
   }
-}, popupPlaceFormSelector);
+}, popupAddPlaceSelector);
 
 popupAddPlace.setEventListeners();
+
+
 
 
 // Устанавливаем слушатели на кнопки editProfile и add Place
