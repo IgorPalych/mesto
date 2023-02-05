@@ -4,50 +4,57 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import FormValidator from '../components/FormValidator.js';
+import Api from '../components/Api.js';
 
 import './index.css';
 
 import {
-  cardsData,
+  configApi,
   cardsListElement,
   cardTemplateID,
-  profileNameInput,
-  profileJobInput,
   popupWithImageSelector,
   popupPlaceFormSelector,
   popupEditProfileSelector,
+  buttonEditAvatar,
   buttonEditProfile,
   buttonAddPlace,
   nameFieldSelector,
-  jobFieldSelector,
-  validationSettings
+  aboutFieldSelector,
+  avatarFieldSelector,
+  validationSettings,
+  popupEditAvatarSelector
 } from '../scripts/constants.js';
 
 
-const formValidators = {}
-
-// Включение валидации
-const enableValidation = (validationSettings) => {
-  const formList = Array.from(document.querySelectorAll(validationSettings.formSelector))
-  formList.forEach((formElement) => {
-    const validator = new FormValidator(validationSettings, formElement)
-    // получаем данные из атрибута `name` у формы
-    const formName = formElement.getAttribute('name')
-
-    // вот тут в объект записываем под именем формы
-    formValidators[formName] = validator;
-    validator.enableValidation();
-  });
-};
-
-enableValidation(validationSettings);
-
-
 // Экземпляр класса для управления профилем пользователя
-const userInfo = new UserInfo({ name: nameFieldSelector, job: jobFieldSelector });
+const userInfo = new UserInfo({ name: nameFieldSelector, about: aboutFieldSelector, avatar: avatarFieldSelector });
+
+const api = new Api(configApi);
+
+// Получаем и отрисовываем данные пользователя
+api.getProfileData()
+  .then((data) => {
+    userInfo.renderUserInfo(data);
+    userInfo.renderAvatar(data);
+  })
+  .catch(err => console.log(`Ошибка: ${err}`)); // выведем ошибку в консоль
 
 
-// Создать карточку
+// Получаем и отрисовываем карточки
+
+api.getInitialCards()
+  .then((data) => {
+    const cardsList = new Section({
+      items: data,
+      renderer: (item) => {
+        cardsList.addItem(createCard(item));
+      }
+    }, cardsListElement);
+    cardsList.renderItems();
+  })
+  .catch(err => console.log(`Ошибка: ${err}`));
+
+// Создаем карточку
 const createCard = (data) => {
   const card = new Card({
     data,
@@ -59,17 +66,23 @@ const createCard = (data) => {
   return cardElement;
 };
 
+// Включаем валидацию форм
 
-// Отрисовать карточки при загрузке страницы
+const formValidators = {}
 
-const cardsList = new Section({
-  items: cardsData,
-  renderer: (item) => {
-    cardsList.addItem(createCard(item));
-  }
-}, cardsListElement);
+const enableValidation = (validationSettings) => {
+  const formList = Array.from(document.querySelectorAll(validationSettings.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(validationSettings, formElement)
+    // получаем данные из атрибута `name` у формы
+    const formName = formElement.getAttribute('name')
+    // вот тут в объект записываем под именем формы
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
 
-cardsList.renderItems();
+enableValidation(validationSettings);
 
 
 // Попапы с формами
@@ -78,9 +91,23 @@ const popupWithImage = new PopupWithImage(popupWithImageSelector);
 popupWithImage.setEventListeners();
 
 
+const popupEditAvatar = new PopupWithForm({
+  handleFormSubmit: (values) => {
+    api.saveAvatar(values)
+      .then(data => userInfo.renderAvatar(data))
+      .catch(err => console.log(`Ошибка: ${err}`));
+  }
+}, popupEditAvatarSelector);
+
+popupEditAvatar.setEventListeners();
+
+
 const popupEditProfile = new PopupWithForm({
   handleFormSubmit: (values) => {
-    userInfo.setUserInfo(values);
+    console.log(values);
+    api.editUserInfo(values)
+      .then((data) => { userInfo.renderUserInfo(data); })
+      .catch(err => console.log(`Ошибка: ${err}`));;
   }
 }, popupEditProfileSelector);
 
@@ -96,7 +123,12 @@ const popupAddPlace = new PopupWithForm({
 popupAddPlace.setEventListeners();
 
 
-// Установить слушатели на кнопки editProfile и add Place
+// Устанавливаем слушатели на кнопки editProfile и add Place
+
+buttonEditAvatar.addEventListener('click', () => {
+  formValidators['avatar-form'].resetValidation();
+  popupEditAvatar.open();
+});
 
 buttonEditProfile.addEventListener('click', () => {
   formValidators['profile-form'].resetValidation();

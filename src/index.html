@@ -20,10 +20,13 @@
 
   <main class="main">
     <section class="profile page__content">
-      <img class="profile__avatar" src="<%=require('./images/avatar.svg')%>" alt="аватар пользователя.">
+      <div class="profile__avatar-container">
+        <img class="profile__avatar" src="" alt="аватар пользователя.">
+        <button class="profile__button profile__button_action_edit-avatar"></button>
+      </div>
       <div class="profile__info-container">
-        <h1 class="profile__name">Жак-Ив Кусто</h1>
-        <p class="profile__job">Исследователь океана</p>
+        <h1 class="profile__name"></h1>
+        <p class="profile__about"></p>
         <button class="profile__button profile__button_action_edit-profile" type="button"></button>
       </div>
       <button class="profile__button profile__button_action_add-place" type="button"></button>
@@ -37,6 +40,22 @@
   <footer class="footer page__content">
     <span class="footer__copyright">&copy; 2022 Mesto Russia</span>
   </footer>
+  <div class="popup popup_type_edit-avatar">
+    <div class="popup__container">
+      <h2 class="popup__header">Обновить аватар</h2>
+      <form class="form" name="avatar-form" novalidate>
+        <fieldset class="form__fields-container">
+          <div class="form__field">
+            <input id="url-input" name="avatar" class="form__input form__input_el_place-image" type="url"
+              placeholder="Ссылка на картинку" required autocomplete="off">
+            <span class="form__error url-input-error"></span>
+          </div>
+        </fieldset>
+        <button class="form__submit" type="submit">Сохранить</button>
+      </form>
+      <button class="popup__close" type="button"></button>
+    </div>
+  </div>
   <div class="popup popup_type_edit-profile">
     <div class="popup__container">
       <h2 class="popup__header">Редактировать профиль</h2>
@@ -48,9 +67,9 @@
             <span class="form__error name-input-error"></span>
           </div>
           <div class="form__field">
-            <input id="job-input" name="job" class="form__input form__input_el_job" type="text" required minlength="2"
-              maxlength="200" autocomplete="off">
-            <span class="form__error job-input-error"></span>
+            <input id="about-input" name="about" class="form__input form__input_el_about" type="text" required
+              minlength="2" maxlength="200" autocomplete="off">
+            <span class="form__error about-input-error"></span>
           </div>
         </fieldset>
         <button class="form__submit" type="submit">Сохранить</button>

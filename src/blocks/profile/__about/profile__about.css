@@ -1,4 +1,4 @@
-.profile__job {
+.profile__about {
   grid-column: 1;
   grid-row: 2;
   margin: 0;
@@ -14,13 +14,13 @@
 }
 
 @media screen and (max-width: 768px) {
-  .profile__job {
+  .profile__about {
     text-align: center;
   }
 }
 
 @media screen and (max-width: 500px) {
-  .profile__job {
+  .profile__about {
     text-align: center;
     font-size: 14px;
   }
