@@ -21,7 +21,7 @@
   <main class="main">
     <section class="profile page__content">
       <div class="profile__avatar-container">
-        <img class="profile__avatar" src="" alt="аватар пользователя.">
+        <img class="profile__avatar" src="#" alt="аватар пользователя.">
         <button class="profile__button profile__button_action_edit-avatar"></button>
       </div>
       <div class="profile__info-container">
@@ -46,9 +46,9 @@
       <form class="form" name="avatar-form" novalidate>
         <fieldset class="form__fields-container">
           <div class="form__field">
-            <input id="url-input" name="avatar" class="form__input form__input_el_place-image" type="url"
+            <input id="avatar-input" name="avatar" class="form__input form__input_el_place-image" type="url"
               placeholder="Ссылка на картинку" required autocomplete="off">
-            <span class="form__error url-input-error"></span>
+            <span class="form__error avatar-input-error"></span>
           </div>
         </fieldset>
         <button class="form__submit" type="submit">Сохранить</button>
@@ -88,9 +88,9 @@
             <span class="form__error place-input-error"></span>
           </div>
           <div class="form__field">
-            <input id="url-input" name="link" class="form__input" type="url" placeholder="Ссылка на картинку" required
+            <input id="image-input" name="link" class="form__input" type="url" placeholder="Ссылка на картинку" required
               autocomplete="off">
-            <span class="form__error url-input-error"></span>
+            <span class="form__error image-input-error"></span>
           </div>
         </fieldset>
         <button class="form__submit" type="submit">Сохранить</button>
@@ -109,7 +109,7 @@
   </div>
   <div class="popup popup_type_view-card">
     <figure class="popup__figure">
-      <img class="popup__image">
+      <img class="popup__image" src="#" alt="">
       <figcaption class="popup__caption"></figcaption>
       <button class="popup__close" type="button"></button>
     </figure>
