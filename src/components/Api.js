@@ -11,13 +11,6 @@ export default class Api {
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  getProfileData() {
-    return fetch(`${this._url}/users/me`, {
-      headers: this._headers
-    })
-      .then(res => this._checkResponse(res));
-  }
-
   getInitialCards() {
     return fetch(`${this._url}/cards`, {
       headers: this._headers
@@ -37,7 +30,7 @@ export default class Api {
       .then(res => this._checkResponse(res));
   }
 
-  editAvatar(data) {
+  setAvatar(data) {
     return fetch(`${this._url}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
@@ -46,13 +39,13 @@ export default class Api {
       .then(res => this._checkResponse(res));
   }
 
-  addNewPlace(data) {
+  addPlace({ name, link }) {
     return fetch(`${this._url}/cards`, {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
-        "name": data.name,
-        "link": data.link
+        "name": name,
+        "link": link
       })
     })
       .then(res => this._checkResponse(res));
@@ -62,6 +55,29 @@ export default class Api {
     return fetch(`${this._url}/cards/${id}`, {
       method: 'DELETE',
       headers: this._headers,
+    })
+      .then(res => this._checkResponse(res));
+  }
+
+  setLike(id) {
+    return fetch(`${this._url}/cards/${id}/likes`, {
+      method: 'PUT',
+      headers: this._headers,
+    })
+      .then(res => this._checkResponse(res));
+  }
+
+  deleteLike(id) {
+    return fetch(`${this._url}/cards/${id}/likes`, {
+      method: 'DELETE',
+      headers: this._headers,
+    })
+      .then(res => this._checkResponse(res));
+  }
+
+  getProfileData() {
+    return fetch(`${this._url}/users/me`, {
+      headers: this._headers
     })
       .then(res => this._checkResponse(res));
   }

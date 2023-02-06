@@ -62,13 +62,13 @@
       <form class="form" name="profile-form" novalidate>
         <fieldset class="form__fields-container">
           <div class="form__field">
-            <input id="name-input" name="name" class="form__input form__input_el_name" type="text" required
-              minlength="2" maxlength="40" autocomplete="off">
+            <input id="name-input" name="name" class="form__input" type="text" required minlength="2" maxlength="40"
+              autocomplete="off">
             <span class="form__error name-input-error"></span>
           </div>
           <div class="form__field">
-            <input id="about-input" name="about" class="form__input form__input_el_about" type="text" required
-              minlength="2" maxlength="200" autocomplete="off">
+            <input id="about-input" name="about" class="form__input" type="text" required minlength="2" maxlength="200"
+              autocomplete="off">
             <span class="form__error about-input-error"></span>
           </div>
         </fieldset>
@@ -80,16 +80,16 @@
   <div class="popup popup_type_add-place">
     <div class="popup__container">
       <h2 class="popup__header">Новое место</h2>
-      <form class="form" name="card-form" novalidate>
+      <form class="form" name="new-place-form" novalidate>
         <fieldset class="form__fields-container">
           <div class="form__field">
-            <input id="place-input" name="name" class="form__input form__input_el_place-title" type="text"
-              placeholder="Название" required minlength="2" maxlength="30" autocomplete="off">
+            <input id="place-input" name="name" class="form__input" type="text" placeholder="Название" required
+              minlength="2" maxlength="30" autocomplete="off">
             <span class="form__error place-input-error"></span>
           </div>
           <div class="form__field">
-            <input id="url-input" name="link" class="form__input form__input_el_place-image" type="url"
-              placeholder="Ссылка на картинку" required autocomplete="off">
+            <input id="url-input" name="link" class="form__input" type="url" placeholder="Ссылка на картинку" required
+              autocomplete="off">
             <span class="form__error url-input-error"></span>
           </div>
         </fieldset>
@@ -120,9 +120,12 @@
       <img class="card__image">
       <div class="card__desctiption">
         <h3 class="card__title"></h3>
-        <button class="card__like" type="button"></button>
+        <div class="card__like-container">
+          <button class="card__like-button" type="button"></button>
+          <span class="card__like-counter"></span>
+        </div>
       </div>
-      <button class="card__delete" type="button"></button>
+      <button class="card__delete-button" type="button"></button>
     </li>
   </template>
   <!-- <script type="module" src="./pages/index.js"></script> -->

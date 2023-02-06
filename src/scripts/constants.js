@@ -16,16 +16,6 @@ export const buttonEditProfile = document.querySelector('.profile__button_action
 export const buttonAddPlace = document.querySelector('.profile__button_action_add-place');
 
 
-// DOM-элементы форм и селекторы полей форм
-export const profileForm = document.forms['profile-form'];
-export const profileNameInput = profileForm.querySelector('.form__input_el_name');
-export const profileJobInput = profileForm.querySelector('.form__input_el_job');
-
-export const cardForm = document.forms['card-form'];
-export const placeTitleInput = cardForm.querySelector('.form__input_el_place-title');
-export const placeImageInput = cardForm.querySelector('.form__input_el_place-image');
-
-
 // Селекторы попапов
 export const popupEditAvatarSelector = '.popup_type_edit-avatar'
 export const popupEditProfileSelector = '.popup_type_edit-profile';
@@ -34,7 +24,7 @@ export const popupAddPlaceSelector = '.popup_type_add-place';
 export const popupDeletePlaceSelector = '.popup_type_delete-place';
 
 
-// Селектор
+// Селектор шаблона карточки
 export const cardTemplateID = '#card-template';
 
 
