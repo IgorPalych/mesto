@@ -13,12 +13,21 @@ export default class UserInfo {
   }
 
   renderUserInfo({ name, about }) {
-    this._name.textContent = name;
-    this._about.textContent = about;
+
+    if (name && about) {
+      this._name.textContent = name;
+      this._about.textContent = about;
+    } else {
+      console.log('Сервер не передал значения');
+    }
   }
 
   renderAvatar({ avatar }) {
-    this._avatar.src = avatar;
+    if (avatar) {
+      this._avatar.src = avatar;
+    } else {
+      console.log('Сервер не передал значения');
+    }
   }
 
 }

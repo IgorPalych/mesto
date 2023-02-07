@@ -2,6 +2,7 @@ import Card from '../components/Card.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithConfirmation from '../components/PopupWithConfirmation.js';
 import UserInfo from '../components/UserInfo.js';
 import FormValidator from '../components/FormValidator.js';
 import Api from '../components/Api.js';
@@ -35,20 +36,11 @@ let userId;
 // Экземпляр класса для управления отображением профиля пользователя
 const userInfo = new UserInfo({ name: nameFieldSelector, about: aboutFieldSelector, avatar: avatarFieldSelector });
 
-
-// Получаем профиль пользователя
-api.getProfileData()
-  .then((profileData) => {
+Promise.all([api.getProfileData(), api.getInitialCards()])
+  .then(([profileData, cardsData]) => {
     userId = profileData._id;  // записываем id пользователя в переменную
     userInfo.renderUserInfo(profileData); // отрисовываем инормацию о пользователе
     userInfo.renderAvatar(profileData); // отрисовываем аватар
-  })
-  .catch(err => console.log(`Ошибка: ${err}`));
-
-
-// Получаем и отрисовываем карточки
-api.getInitialCards()
-  .then((cardsData) => {
     const cardsList = new Section({
       items: cardsData,
       renderer: (item) => {
@@ -57,7 +49,9 @@ api.getInitialCards()
     }, cardsListElement);
     cardsList.renderItems();
   })
-  .catch(err => console.log(`Ошибка: ${err}`));
+  .catch((err) => {
+    console.log(`Ошибка: ${err}`);
+  });
 
 
 // Создаем карточку
@@ -68,19 +62,15 @@ const createCard = (cardData) => {
     handleCardImageClick: () => {
       popupWithImage.open(cardData.name, cardData.link);
     },
-    handleDeleteCard: (cardId) => {
-      const popupDeletePlace = new PopupWithForm({
-        handleFormSubmit: () => {
-          api.deletePlace(cardId)
-            .then(() => {
-              card.deleteCard();
-              popupDeletePlace.close();
-            })
-            .catch(err => console.log(`Ошибка: ${err}`));
-        }
-      }, popupDeletePlaceSelector);
-
-      popupDeletePlace.setEventListeners();
+    handleDeleteIconClick: (cardId) => {
+      popupDeletePlace.handleSendConfirmation(() => {
+        api.deletePlace(cardId)
+          .then(() => {
+            card.deleteCard();
+            popupDeletePlace.close();
+          })
+          .catch(err => console.log(`Ошибка: ${err}`));
+      });
       popupDeletePlace.open()
     },
     handleSetLike: (cardId) => {
@@ -167,6 +157,12 @@ const popupAddPlace = new PopupWithForm({
   }
 }, popupAddPlaceSelector);
 popupAddPlace.setEventListeners();
+
+
+const popupDeletePlace = new PopupWithConfirmation(
+  popupDeletePlaceSelector
+);
+popupDeletePlace.setEventListeners();
 
 
 // Устанавливаем слушатели на кнопки профиля
